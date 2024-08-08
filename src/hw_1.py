@@ -21,9 +21,9 @@ def p2():
     i2 = (i_total - i1) * (r1 / (r1 + 300))     #2.7
     i3 = i_total - i1 - i2                      #1.5
 
-    print("I1: {}A".format(i1))
-    print("I2: {}A".format(i2))
-    print("I3: {}A".format(i3))
+    print("I1: {:.2f}A".format(i1))
+    print("I2: {:.2f}A".format(i2))
+    print("I3: {:.2f}A".format(i3))
 
 def p3():
     (r1, r2, r3) = _p2_p3_res()
