@@ -24,3 +24,16 @@ def p2():
     print("I1: {}A".format(i1))
     print("I2: {}A".format(i2))
     print("I3: {}A".format(i3))
+
+def p3():
+    (r1, r2, r3) = _p2_p3_res()
+    r4 = 1 / ((1 / 200) + (1 / r3))
+
+    v0 = 10
+    v1 = v0 * (r4 / (r4 + 50))      #7
+    v2 = v1 * (r2 / r3)             #5
+    v3 = v2 * (400 / r1)            #3.8
+
+    print("V1: {:.2f}V".format(v1))
+    print("V2: {:.2f}V".format(v2))
+    print("V3: {:.2f}V".format(v3))
