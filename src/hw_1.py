@@ -6,10 +6,15 @@ def p1():
     Rab = 50 + r4
     print("Resistance Rab: {:.2f} Ω".format(Rab))
 
-def p2():
+def _p2_p3_res():
     r1 = 400 + 125
     r2 = 1 / ((1 / 300) + (1 / r1))
     r3 = 75 + r2
+
+    return (r1, r2, r3)
+
+def p2():
+    (r1, r2, r3) = _p2_p3_res()
 
     i_total = 10
     i1 = i_total * (r3 / (r3 + 200))            #5.7
