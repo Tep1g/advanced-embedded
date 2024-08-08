@@ -37,3 +37,16 @@ def p3():
     print("V1: {:.2f}V".format(v1))
     print("V2: {:.2f}V".format(v2))
     print("V3: {:.2f}V".format(v3))
+
+def p4():
+    #define imaginary number j
+    j = (-1) ** 0.5
+    
+    z1 = 1 / ((1 / (200*j)) + (1 / 100))
+    z2 = 40 + z1
+    z3 = 1 / ((1 / (-150*j)) + (1 / z2))
+    z4 = 30 + z3
+    z5 = 1 / ((1 / (100*j)) + (1 / z4))
+    Zab = 20 + z5
+
+    print ("Zab: {:.2f} Ω".format(Zab))
