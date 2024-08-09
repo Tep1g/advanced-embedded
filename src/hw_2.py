@@ -7,7 +7,7 @@ MAX_SCORE = 40
 def p1():
     rand_num = ""
     for _ in range(0, CODE_LENGTH):
-        rand_num += str(randrange(MAX_DIGIT_VALUE))
+        rand_num += str(randrange(0, MAX_DIGIT_VALUE))
 
     # python removes leading zeroes from int, return as string
     return rand_num
