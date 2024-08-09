@@ -33,6 +33,6 @@ def p3():
             guess = input("\nGuess number: {}\nEnter a four digit guess: ".format(guess_num))
             score = p2(guess, code)
             guess_num += 1
-            print("Your guess score: {}".format(score))
+            print("Your score: {}".format(score))
         except ValueError as error:
             print(error)
