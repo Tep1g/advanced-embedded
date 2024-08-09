@@ -4,12 +4,12 @@ CODE_LENGTH = 4
 MAX_DIGIT_VALUE = 6
 
 def p1():
-    rand_int = ""
+    rand_num = ""
     for _ in range(0, CODE_LENGTH):
-        rand_int += str(randrange(MAX_DIGIT_VALUE))
+        rand_num += str(randrange(MAX_DIGIT_VALUE))
 
     # python removes leading zeroes from int, return as string
-    return rand_int
+    return rand_num
 
 def p2(guess: str, code: str):
     if ((len(guess) != CODE_LENGTH) or (len(code) != CODE_LENGTH)):
