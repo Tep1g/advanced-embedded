@@ -23,3 +23,14 @@ def p2(guess: str, code: str):
             score += 1
         
     return score
+
+def p3():
+    score = 0
+    code = p1()
+    while score < 40:
+        try:
+            guess = input("Enter a four digit guess: ")
+            score = p2(guess, code)
+            print("Your guess score: {}".format(score))
+        except ValueError as error:
+            print(error)
