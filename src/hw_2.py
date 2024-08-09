@@ -2,6 +2,7 @@ from random import randrange
 
 CODE_LENGTH = 4
 MAX_DIGIT_VALUE = 6
+MAX_SCORE = 40
 
 def p1():
     rand_num = ""
@@ -28,7 +29,7 @@ def p3():
     score = 0
     guess_num = 1
     code = p1()
-    while score < 40:
+    while score < MAX_SCORE:
         try:
             guess = input("\nGuess number: {}\nEnter a four digit guess: ".format(guess_num))
             score = p2(guess, code)
