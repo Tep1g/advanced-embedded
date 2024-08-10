@@ -1,10 +1,23 @@
 from machine import Pin
 
-BUTTON1 = Pin("GP15", Pin.IN)
-BUTTON2 = Pin("GP14", Pin.IN)
-LED1 = Pin("GP16", Pin.OUT)
-LED2 = Pin("GP17", Pin.OUT)
+def hw_3():
 
-def p1():
-    LED1.value((1 - BUTTON1.value()) & (1 - BUTTON2.value()))
-    LED2.value((1 - BUTTON1.value()) ^ (1 - BUTTON2.value()))
+    def init():
+        button1 = Pin("GP15", Pin.IN)
+        button2 = Pin("GP14", Pin.IN)
+        led1 = Pin("GP16", Pin.OUT)
+        led2 = Pin("GP17", Pin.OUT)
+
+        return (button1, button2, led1, led2)
+
+    def p1():
+        led1.value((1 - button1.value()) & (1 - button2.value()))
+        led2.value((1 - button1.value()) ^ (1 - button2.value()))
+
+    (button1, button2, led1, led2) = init()
+
+    try:
+        while True:
+            p1()
+    except KeyboardInterrupt:
+        print("Exited")
