@@ -1,13 +1,14 @@
 from random import randrange
 
 CODE_LENGTH = 4
-MAX_DIGIT_VALUE = 6
+MAX_DIGIT_VALUE = 5
+MIN_DIGIT_VALUE = 0
 MAX_SCORE = 40
 
 def p1():
     rand_num = ""
     for _ in range(0, CODE_LENGTH):
-        rand_num += str(randrange(0, MAX_DIGIT_VALUE))
+        rand_num += str(randrange(MIN_DIGIT_VALUE, MAX_DIGIT_VALUE + 1))
 
     # python removes leading zeroes from int, return as string
     return rand_num
