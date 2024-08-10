@@ -1,10 +1,10 @@
 from machine import Pin
 
 def p1():
-    button1 = Pin("GP15", Pin.IN)
-    button2 = Pin("GP14", Pin.IN)
-    led1 = Pin("GP16", Pin.OUT)
-    led2 = Pin("GP17", Pin.OUT)
+    button1 = Pin(15, Pin.IN, Pin.PULL_UP)
+    button2 = Pin(14, Pin.IN, Pin.PULL_UP)
+    led1 = Pin(16, Pin.OUT)
+    led2 = Pin(17, Pin.OUT)
 
     try:
         while True:
@@ -18,12 +18,12 @@ def p2():
     class p2_stuff():
         def __init__(self):
 
-            self.button1 = Pin("GP15", Pin.IN)
+            self.button1 = Pin(15, Pin.IN, Pin.PULL_UP)
             self.button1.irq(trigger=Pin.IRQ_RISING, handler=self._p2_callback1)
-            self.button2 = Pin("GP14", Pin.IN)
+            self.button2 = Pin(14, Pin.IN, Pin.PULL_UP)
             self.button2.irq(trigger=Pin.IRQ_RISING, handler=self._p2_callback2)
-            self.led1 = Pin("GP16", Pin.OUT)
-            self.led2 = Pin("GP17", Pin.OUT)
+            self.led1 = Pin(16, Pin.OUT)
+            self.led2 = Pin(17, Pin.OUT)
             self.counter = 0
     
         def _p2_callback1(self, pin):
