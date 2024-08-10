@@ -6,5 +6,5 @@ LED1 = Pin("GP16", Pin.OUT)
 LED2 = Pin("GP17", Pin.OUT)
 
 def p1():
-    LED1.value((not BUTTON1.value()) & (not BUTTON2.value()))
-    LED2.value((not BUTTON1.value()) ^ (not BUTTON2.value()))
+    LED1.value((1 - BUTTON1.value()) & (1 - BUTTON2.value()))
+    LED2.value((1 - BUTTON1.value()) ^ (1 - BUTTON2.value()))
