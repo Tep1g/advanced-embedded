@@ -13,7 +13,7 @@ def p1():
             led1.value((1 - button1.value()) & (1 - button2.value()))
             led2.value((1 - button1.value()) ^ (1 - button2.value()))
     except KeyboardInterrupt:
-        pass
+        return "Exited Sucessfully"
 
 def p2():
 
@@ -40,7 +40,7 @@ def p2():
         while True:
             print(stuff.counter)
     except KeyboardInterrupt:
-        pass
+        return "Exited Sucessfully"
 
 def combo_lock():
     """Combo lock game"""
@@ -94,4 +94,4 @@ def combo_lock():
                 print("Guess {} was {}".format(guess, guess_result))
 
     except KeyboardInterrupt:
-        pass
+        return "Exited Sucessfully"
