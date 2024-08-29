@@ -17,9 +17,9 @@ def p2():
     (r1, r2, r3) = _p2_p3_res()
 
     i_total = 10
-    i1 = i_total * (r3 / (r3 + 200))            #5.7
-    i2 = (i_total - i1) * (r1 / (r1 + 300))     #2.7
-    i3 = i_total - i1 - i2                      #1.5
+    i1 = i_total * (r3 / (r3 + 200))
+    i2 = (i_total - i1) * (r1 / (r1 + 300))
+    i3 = i_total - i1 - i2
 
     print("I1: {:.2f}A".format(i1))
     print("I2: {:.2f}A".format(i2))
@@ -30,9 +30,9 @@ def p3():
     r4 = 1 / ((1 / 200) + (1 / r3))
 
     v0 = 10
-    v1 = v0 * (r4 / (r4 + 50))      #7
-    v2 = v1 * (r2 / r3)             #5
-    v3 = v2 * (400 / r1)            #3.8
+    v1 = v0 * (r4 / (r4 + 50))
+    v2 = v1 * (r2 / r3)
+    v3 = v2 * (400 / r1)
 
     print("V1: {:.2f}V".format(v1))
     print("V2: {:.2f}V".format(v2))
