@@ -18,10 +18,13 @@ def p2(guess: list, code: list) -> int:
     
     score = 0
     for pos in range(0, CODE_LENGTH):
+        remaining_digits = code[:pos] + code[pos+1:]
+        print(remaining_digits)
         if guess[pos] == code[pos]:
             score += 10
-        else:
-            score += 1
+        for digit in remaining_digits:
+            if guess[pos] == digit:
+                score += 1
         
     return score
 
