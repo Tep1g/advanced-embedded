@@ -5,14 +5,14 @@ MAX_DIGIT_VALUE = 5
 MIN_DIGIT_VALUE = 0
 MAX_SCORE = 40
 
-def p1():
+def p1() -> list:
     rand_digits = []
     for _ in range(0, CODE_LENGTH):
         rand_digits.append(randrange(MIN_DIGIT_VALUE, MAX_DIGIT_VALUE + 1))
 
     return rand_digits
 
-def p2(guess: list, code: list):
+def p2(guess: list, code: list) -> int:
     if ((len(guess) != CODE_LENGTH) or (len(code) != CODE_LENGTH)):
         raise ValueError("Incorrect code length")
     
