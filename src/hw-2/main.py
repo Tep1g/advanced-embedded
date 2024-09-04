@@ -61,7 +61,7 @@ def main():
                 invalid_input |= True
             else:
                 for digit in user_input:
-                    invalid_input |= not (MIN_DIGIT_VALUE < int(digit) < MAX_DIGIT_VALUE)
+                    invalid_input |= not (MIN_DIGIT_VALUE <= int(digit) <= MAX_DIGIT_VALUE)
 
             if invalid_input:
                 raise ValueError("Invalid input: '{}', must be a {} digit code".format(user_input, CODE_LENGTH))
