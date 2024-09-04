@@ -6,6 +6,7 @@ MIN_DIGIT_VALUE = 0
 MAX_SCORE = 40
 
 def get_code() -> list:
+    """Return a code as a list of integers"""
     rand_digits = []
     for _ in range(0, CODE_LENGTH):
         rand_digits.append(randrange(MIN_DIGIT_VALUE, MAX_DIGIT_VALUE + 1))
@@ -13,6 +14,15 @@ def get_code() -> list:
     return rand_digits
 
 def get_score(guess: list, code: list) -> int:
+    """
+    Calculate the score based on the guess and code.
+
+    :param list guess: a list containing the 4 digit guess
+    :param list code: a list containing the 4 digit code
+
+    :return int: the calculated score
+
+    """
     score = 0
     non_matching_digits = []
 
@@ -37,6 +47,7 @@ def get_score(guess: list, code: list) -> int:
     return score
 
 def main():
+    """Master-Mind Program"""
     score = 0
     guess_num = 1
     code = get_code()
