@@ -64,7 +64,7 @@ def main():
                     invalid_input |= not (MIN_DIGIT_VALUE < int(digit) < MAX_DIGIT_VALUE)
 
             if invalid_input:
-                raise ValueError("Invalid input: {}, must be a {} digit code".format(user_input, CODE_LENGTH))
+                raise ValueError("Invalid input: '{}', must be a {} digit code".format(user_input, CODE_LENGTH))
             
             guess = [int(digit) for digit in user_input]
             score = get_score(guess, code)
