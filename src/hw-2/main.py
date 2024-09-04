@@ -13,9 +13,6 @@ def get_code() -> list:
     return rand_digits
 
 def get_score(guess: list, code: list) -> int:
-    if ((len(guess) != CODE_LENGTH) or (len(code) != CODE_LENGTH)):
-        raise ValueError("Incorrect code length")
-    
     score = 0
     non_matching_digits = []
 
@@ -46,6 +43,18 @@ def main():
     while score < MAX_SCORE:
         try:
             user_input = input("\nGuess number: {}\nEnter a four digit guess: ".format(guess_num))
+
+            # Check the input
+            invalid_input = False
+            if (len(user_input) != CODE_LENGTH) or (not user_input.isdigit()):
+                invalid_input |= True
+            else:
+                for digit in user_input:
+                    invalid_input |= not (MIN_DIGIT_VALUE < int(digit) < MAX_DIGIT_VALUE)
+
+            if invalid_input:
+                raise ValueError("Invalid input: {}, must be a {} digit code".format(user_input, CODE_LENGTH))
+            
             guess = [int(digit) for digit in user_input]
             score = get_score(guess, code)
             guess_num += 1
