@@ -64,11 +64,14 @@ def main():
                     invalid_input |= not (MIN_DIGIT_VALUE <= int(digit) <= MAX_DIGIT_VALUE)
 
             if invalid_input:
-                raise ValueError("Invalid input: '{}', must be a {} digit code".format(user_input, CODE_LENGTH))
+                raise ValueError("Invalid input: '{}', must be a {} digit code with digits between {} and {} inclusive".format(user_input, CODE_LENGTH, MIN_DIGIT_VALUE, MAX_DIGIT_VALUE))
             
             guess = [int(digit) for digit in user_input]
             score = get_score(guess, code)
             guess_num += 1
             print("Your score: {}".format(score))
+
         except ValueError as error:
             print(error)
+            
+    print("You guessed correctly!")
