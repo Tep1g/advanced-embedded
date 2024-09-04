@@ -2,6 +2,7 @@
 ## Code
 ```python
 def p1():
+    """Problem 1"""
     r1 = 300 + 200
     r2 = 1 / ((1 / r1) + (1 / 450))
     r3 = 75 + r2
@@ -19,6 +20,12 @@ def p1():
 ## Code
 ```python
 def _p2_p3_res():
+    """
+    Collapse certain branches and calculate resistances for problems 2 and 3.
+    Reduces repeat calculations.
+
+    :return tuple: collapsed resistances
+    """
     r1 = 400 + 125
     r2 = 1 / ((1 / 300) + (1 / r1))
     r3 = 75 + r2
@@ -26,6 +33,7 @@ def _p2_p3_res():
     return (r1, r2, r3)
 
 def p2():
+    """Problem 2"""
     (r1, r2, r3) = _p2_p3_res()
 
     i_total = 10
@@ -47,6 +55,12 @@ def p2():
 ## Code
 ```python
 def _p2_p3_res():
+    """
+    Collapse certain branches and calculate resistances for problems 2 and 3.
+    Reduces repeat calculations.
+
+    :return tuple: collapsed resistances
+    """
     r1 = 400 + 125
     r2 = 1 / ((1 / 300) + (1 / r1))
     r3 = 75 + r2
@@ -54,6 +68,7 @@ def _p2_p3_res():
     return (r1, r2, r3)
 
 def p3():
+    """Problem 3"""
     (r1, r2, r3) = _p2_p3_res()
     r4 = 1 / ((1 / 200) + (1 / r3))
 
@@ -78,6 +93,7 @@ def p3():
 ## Code
 ```python
 def p4():
+    """Problem 4"""
     #define imaginary number j
     j = (-1) ** 0.5
     
