@@ -5,14 +5,14 @@ MAX_DIGIT_VALUE = 5
 MIN_DIGIT_VALUE = 0
 MAX_SCORE = 40
 
-def p1() -> list:
+def get_code() -> list:
     rand_digits = []
     for _ in range(0, CODE_LENGTH):
         rand_digits.append(randrange(MIN_DIGIT_VALUE, MAX_DIGIT_VALUE + 1))
 
     return rand_digits
 
-def p2(guess: list, code: list) -> int:
+def get_score(guess: list, code: list) -> int:
     if ((len(guess) != CODE_LENGTH) or (len(code) != CODE_LENGTH)):
         raise ValueError("Incorrect code length")
     
@@ -39,15 +39,15 @@ def p2(guess: list, code: list) -> int:
         
     return score
 
-def p3():
+def main():
     score = 0
     guess_num = 1
-    code = p1()
+    code = get_code()
     while score < MAX_SCORE:
         try:
             user_input = input("\nGuess number: {}\nEnter a four digit guess: ".format(guess_num))
             guess = [int(digit) for digit in user_input]
-            score = p2(guess, code)
+            score = get_score(guess, code)
             guess_num += 1
             print("Your score: {}".format(score))
         except ValueError as error:
