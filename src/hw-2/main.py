@@ -17,14 +17,25 @@ def p2(guess: list, code: list) -> int:
         raise ValueError("Incorrect code length")
     
     score = 0
-    for pos in range(0, CODE_LENGTH):
-        remaining_digits = code[:pos] + code[pos+1:]
-        print(remaining_digits)
-        if guess[pos] == code[pos]:
+    non_matching_digits = []
+
+    for index in range(0, CODE_LENGTH):
+
+        guess_digit = guess[index]
+        code_digit = code[index]
+
+        # Add 10 points for every matching digit
+        if guess_digit == code_digit:
             score += 10
-        for digit in remaining_digits:
-            if guess[pos] == digit:
-                score += 1
+
+        # Save the code's non matching digits
+        else:
+            non_matching_digits.append(code_digit)
+
+    # Add a point for every non-matching code digit that exists within the guess
+    for digit in non_matching_digits:
+        if digit in guess:
+            score += 1
         
     return score
 
