@@ -66,7 +66,7 @@ def combo_lock():
         load.value(1)
 
         # Return the binary inputs
-        return int(bus.read(1))
+        return int.from_bytes(bus.read(1), "big")
 
     bus = SPI(1, baudrate=10_000_000, polarity=0, phase=0, bits=8, sck=10, mosi=11, miso=12)
     load = Pin(9, Pin.OUT)
