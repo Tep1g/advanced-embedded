@@ -69,7 +69,7 @@ def combo_lock():
         return int(bus.read(1))
 
     bus = SPI(1, baudrate=10_000_000, polarity=0, phase=0, bits=8, sck=10, mosi=11, miso=12)
-    load = Pin(13, Pin.OUT)
+    load = Pin(9, Pin.OUT)
     button = Pin(15, Pin.IN, Pin.PULL_UP)
     led = Pin(16, Pin.OUT)
 
