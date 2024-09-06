@@ -6,7 +6,7 @@ MIN_DIGIT_VALUE = 0
 MAX_SCORE = 40
 
 def get_code() -> list:
-    """Return a code as a list of integers"""
+    """Return a random code as a list of integers"""
     rand_digits = []
     for _ in range(0, CODE_LENGTH):
         rand_digits.append(randrange(MIN_DIGIT_VALUE, MAX_DIGIT_VALUE + 1))
