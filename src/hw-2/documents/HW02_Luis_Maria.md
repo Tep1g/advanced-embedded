@@ -17,6 +17,7 @@ def get_code() -> list:
 ```
 
 ## Output
+![](images/image-1.png)
 
 <br>
 
@@ -63,6 +64,7 @@ def get_score(guess: list, code: list) -> int:
 ```
 
 ## Output
+![](images/image-2.png)
 
 <br>
 
@@ -121,5 +123,6 @@ def main():
 ```
 
 ## Output
+![](images/image.png)
 
 <br>
