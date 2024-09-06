@@ -45,9 +45,9 @@ def p2():
 class SN74165N():
     """SN74165N Shift Register"""
     def __init__(self, clock: Pin, load: Pin, rx: Pin):
-        self.clock = clock
-        self.load = load
-        self.rx = rx
+        self._clock = clock
+        self._load = load
+        self._rx = rx
 
     def read(self) -> int:
         """
@@ -60,19 +60,19 @@ class SN74165N():
         :return int: 1 byte parallel input
         """
         # Temporarily pull load pin down
-        self.load.value(1)
-        self.clock.value(0)
+        self._load.value(1)
+        self._clock.value(0)
         time.sleep_ms(100)
-        self.load.value(0)
+        self._load.value(0)
         time.sleep_ms(100)
-        self.load.value(1)
+        self._load.value(1)
         # data is latched - now shift it in
         X = 0
         for i in range(0,8):
-            self.clock.value(1)
+            self._clock.value(1)
             time.sleep_ms(100)
-            X = (X << 1) + self.rx.value()
-            self.clock.value(0)
+            X = (X << 1) + self._rx.value()
+            self._clock.value(0)
             time.sleep_ms(100)
             print(i, X)
         return(X)
