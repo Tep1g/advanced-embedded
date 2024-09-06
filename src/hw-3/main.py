@@ -1,5 +1,6 @@
 import time
 import random
+import _thread
 from machine import Pin
 
 def p1():
@@ -27,6 +28,7 @@ class ButtonCounter():
     :param int trigger: The IRQ event that triggers an interrupt
     :param list[int] counter_ptr: Pointer to the counter
     :param int increment: Increment size
+    :param lock: lock object to prevent simulatenous access to shared resource.
     """
     def __init__(
             self, 
@@ -34,24 +36,28 @@ class ButtonCounter():
             button_pull: int, 
             trigger:int, 
             counter_ptr: list[int], 
-            increment: int
+            increment: int,
+            lock
         ):
 
         self._button = Pin(button_pin, Pin.IN, button_pull)
         self._button.irq(trigger=trigger, handler=self._button_callback)
         self._counter_ptr = counter_ptr
         self._increment = increment
+        self._lock = lock
 
     def _button_callback(self, pin: Pin):
-        self._counter_ptr[0] += self._increment
+        with self._lock:
+            self._counter_ptr[0] += self._increment
 
 def counter():
     """Counter program"""
     counter_ptr = [0]
+    lock = _thread.allocate_lock()
     
     # Configure button counter objects to increment on falling edge
-    ButtonCounter(15, Pin.PULL_UP, Pin.IRQ_FALLING, counter_ptr, 10)
-    ButtonCounter(14, Pin.PULL_UP, Pin.IRQ_FALLING, counter_ptr, 1)
+    ButtonCounter(15, Pin.PULL_UP, Pin.IRQ_FALLING, counter_ptr, 10, lock)
+    ButtonCounter(14, Pin.PULL_UP, Pin.IRQ_FALLING, counter_ptr, 1, lock)
 
     try:
         while True:
