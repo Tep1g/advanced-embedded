@@ -39,7 +39,8 @@ def get_score(guess: list, code: list) -> int:
         else:
             non_matching_digits.append(code_digit)
 
-    # Add a point for every non-matching code digit that exists within the guess
+    # Add a point for every non-matching 
+    # code digit that exists within the guess
     for digit in non_matching_digits:
         if digit in guess:
             score += 1
@@ -53,18 +54,33 @@ def main():
     code = get_code()
     while score < MAX_SCORE:
         try:
-            user_input = input("\nGuess number: {}\nEnter a four digit guess: ".format(guess_num))
+            user_input = input(
+                "\nGuess number: {}\
+                \nEnter a four digit guess: ".format(guess_num)
+            )
 
             # Check the input
             invalid_input = False
-            if (len(user_input) != CODE_LENGTH) or (not user_input.isdigit()):
-                invalid_input |= True
+            if ((len(user_input) != CODE_LENGTH) or 
+                (not user_input.isdigit())):
+                    invalid_input = True
             else:
                 for digit in user_input:
-                    invalid_input |= not (MIN_DIGIT_VALUE <= int(digit) <= MAX_DIGIT_VALUE)
+                    invalid_input = (not (MIN_DIGIT_VALUE <= 
+                        int(digit) <= MAX_DIGIT_VALUE))
 
             if invalid_input:
-                raise ValueError("Invalid input: '{}', must be a {} digit code with digits between {} and {} inclusive".format(user_input, CODE_LENGTH, MIN_DIGIT_VALUE, MAX_DIGIT_VALUE))
+                raise ValueError(
+                    "Invalid input: '{}', must be a {} digit code ".format(
+                        user_input, 
+                        CODE_LENGTH, 
+                    )
+                    +
+                    "with digits between {} and {} inclusive".format(
+                        MIN_DIGIT_VALUE, 
+                        MAX_DIGIT_VALUE
+                    )
+                )
             
             guess = [int(digit) for digit in user_input]
             score = get_score(guess, code)
