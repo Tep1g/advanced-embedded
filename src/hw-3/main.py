@@ -91,10 +91,10 @@ class SN74165N():
         # data is latched - now shift it in
         X = 0
         for i in range(0,8):
-            self._clock.value(1)
+            self._clock.value(0)
             time.sleep_ms(100)
             X = (X << 1) + self._rx.value()
-            self._clock.value(0)
+            self._clock.value(1)
             time.sleep_ms(100)
         
         return(X)
