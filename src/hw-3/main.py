@@ -94,4 +94,7 @@ def combo_lock():
                 print("Guess {} was {}".format(guess, guess_result))
 
     except KeyboardInterrupt:
+        pass
+    
+    finally:
         return "Exited Sucessfully"
