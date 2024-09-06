@@ -20,7 +20,7 @@ class ButtonCounter():
     """
     Button Counter
 
-    Increment a counter when an interrupt is triggered.
+    Increment a counter when an IRQ interrupt is triggered.
 
     :param int button_pin: Button GPIO pin
     :param int button_pull: Specify if the pin has a pull resistor attached
