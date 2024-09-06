@@ -1,6 +1,6 @@
 import time
-from machine import Pin, SPI
-from random import randrange
+import random
+from machine import Pin
 
 def p1():
     button1 = Pin(15, Pin.IN, Pin.PULL_UP)
@@ -42,34 +42,53 @@ def p2():
     except KeyboardInterrupt:
         return "Exited Sucessfully"
 
+class SN74165N():
+    """SN74165N Shift Register"""
+    def __init__(self, clock: Pin, load: Pin, rx: Pin):
+        self.clock = clock
+        self.load = load
+        self.rx = rx
+
+    def read(self) -> int:
+        """
+        Read the binary inputs of a 74LS165 shift register using bit banging
+
+        :param Pin clock: Serial Clock
+        :param Pin load: Loads and shifts the shift register's parallel inputs
+        :param Pin rx: Serial receive
+
+        :return int: 1 byte parallel input
+        """
+        # Temporarily pull load pin down
+        self.load.value(1)
+        self.clock.value(0)
+        time.sleep_ms(100)
+        self.load.value(0)
+        time.sleep_ms(100)
+        self.load.value(1)
+        # data is latched - now shift it in
+        X = 0
+        for i in range(0,8):
+            self.clock.value(1)
+            time.sleep_ms(100)
+            X = (X << 1) + self.rx.value()
+            self.clock.value(0)
+            time.sleep_ms(100)
+            print(i, X)
+        return(X)
+
+def randnum() -> int:
+    """Return a random number between 0 and 255"""
+    return random.randrange(0, 256)
+
 def combo_lock():
     """Combo lock game"""
 
-    def p3():
-        """Return a random number between 0 and 255"""
-        return randrange(0, 255+1)
-
-    def p4(bus: SPI, load: Pin):
-        """
-        Read the binary inputs of a 74LS165 through SPI bus
-
-        :param SPI bus: 74LS165's SPI bus object that gets read from
-        :param Pin load: Output pin tied to the 74LS165's load pin
-
-        :return int: 74LS165's 1 byte input
-        """
-        # Temporarily pull load pin down
-        load.value(1)
-        time.sleep_us(1)
-        load.value(0)
-        time.sleep_us(1)
-        load.value(1)
-
-        # Return the binary inputs
-        return int.from_bytes(bus.read(1), "big")
-
-    bus = SPI(1, baudrate=10_000_000, polarity=0, phase=0, bits=8, sck=10, mosi=11, miso=12)
+    clock = Pin(10, Pin.OUT)
     load = Pin(9, Pin.OUT)
+    rx = Pin(12, Pin.IN, Pin.PULL_UP)
+    shiftreg = SN74165N(clock, load, rx)
+
     button = Pin(15, Pin.IN, Pin.PULL_UP)
     led = Pin(16, Pin.OUT)
 
@@ -77,13 +96,13 @@ def combo_lock():
         while True:
             print("Game Start")
             guess_result = ""
-            rand_int = p3()
+            rand_int = randnum()
             guess = -1
             led.off()
             while guess != rand_int:
                 while button.value():
                     continue
-                guess = p4(bus, load)
+                guess = shiftreg.read()
                 if rand_int == guess:
                     guess_result = "correct"
                 elif rand_int > guess:
