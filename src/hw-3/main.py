@@ -43,22 +43,20 @@ def p2():
         return "Exited Sucessfully"
 
 class SN74165N():
-    """SN74165N Shift Register"""
+    """
+    SN74165N Shift Register
+    
+    :param Pin clock: Serial clock
+    :param Pin load: Loads and shifts the shift register's parallel inputs
+    :param Pin rx: Serial receive
+    """
     def __init__(self, clock: Pin, load: Pin, rx: Pin):
         self._clock = clock
         self._load = load
         self._rx = rx
 
     def read(self) -> int:
-        """
-        Read the binary inputs of a 74LS165 shift register using bit banging
-
-        :param Pin clock: Serial Clock
-        :param Pin load: Loads and shifts the shift register's parallel inputs
-        :param Pin rx: Serial receive
-
-        :return int: 1 byte parallel input
-        """
+        """Read the 8-bit input of a 74LS165 shift register using bit banging"""
         # Temporarily pull load pin down
         self._load.value(1)
         self._clock.value(0)
