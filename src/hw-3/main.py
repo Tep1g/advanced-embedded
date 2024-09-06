@@ -17,9 +17,28 @@ def p1():
 
 
 class ButtonCounter():
-    def __init__(self, button_pin: int, button_mode: int, counter_ptr: list[int], increment: int):
-        self._button = Pin(button_pin, Pin.IN, button_mode)
-        self._button.irq(trigger=Pin.IRQ_FALLING, handler=self._button_callback)
+    """
+    Button Counter
+
+    Increment a counter when an interrupt is triggered.
+
+    :param int button_pin: Button GPIO pin
+    :param int button_pull: Specify if the pin has a pull resistor attached
+    :param int trigger: The IRQ event that triggers an interrupt
+    :param list[int] counter_ptr: Pointer to the counter
+    :param int increment: Increment size
+    """
+    def __init__(
+            self, 
+            button_pin: int, 
+            button_pull: int, 
+            trigger:int, 
+            counter_ptr: list[int], 
+            increment: int
+        ):
+
+        self._button = Pin(button_pin, Pin.IN, button_pull)
+        self._button.irq(trigger=trigger, handler=self._button_callback)
         self._counter_ptr = counter_ptr
         self._increment = increment
 
@@ -30,8 +49,9 @@ def counter():
     """Counter program"""
     counter_ptr = [0]
     
-    ButtonCounter(15, Pin.PULL_UP, counter_ptr, 10)
-    ButtonCounter(14, Pin.PULL_UP, counter_ptr, 1)
+    # Configure button counter objects to increment on falling edge
+    ButtonCounter(15, Pin.PULL_UP, Pin.IRQ_FALLING, counter_ptr, 10)
+    ButtonCounter(14, Pin.PULL_UP, Pin.IRQ_FALLING, counter_ptr, 1)
 
     try:
         while True:
