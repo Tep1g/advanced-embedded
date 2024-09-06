@@ -74,10 +74,10 @@ class SN74165N():
     :param Pin load: Loads and shifts the shift register's parallel inputs
     :param Pin rx: Serial receive
     """
-    def __init__(self, clock: Pin, load: Pin, rx: Pin):
-        self._clock = clock
-        self._load = load
-        self._rx = rx
+    def __init__(self, clk_pin: int, ld_pin: int, rx_pin: int):
+        self._clock = Pin(clk_pin, Pin.OUT)
+        self._load = Pin(ld_pin, Pin.OUT)
+        self._rx = Pin(rx_pin, Pin.IN)
 
     def read(self) -> int:
         """Read the 8-bit input of a 74LS165 shift register using bit banging"""
@@ -106,11 +106,8 @@ def randnum() -> int:
 def combo_lock():
     """Combo lock game"""
 
-    clock = Pin(10, Pin.OUT)
-    load = Pin(9, Pin.OUT)
-    rx = Pin(12, Pin.IN, Pin.PULL_UP)
-    shiftreg = SN74165N(clock, load, rx)
-
+    #Init SN74165N, button, and led
+    shiftreg = SN74165N(clk_pin=10, ld_pin=9, rx_pin=12)
     button = Pin(15, Pin.IN, Pin.PULL_UP)
     led = Pin(16, Pin.OUT)
 
@@ -124,10 +121,12 @@ def combo_lock():
             while guess != rand_int:
                 while button.value():
                     continue
+                
                 guess = shiftreg.read()
-                if rand_int == guess:
+
+                if guess == rand_int:
                     guess_result = "correct"
-                elif rand_int > guess:
+                elif guess > rand_int:
                     guess_result = "too high"
                 else:
                     guess_result = "too low"
