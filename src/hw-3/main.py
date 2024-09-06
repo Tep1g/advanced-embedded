@@ -96,7 +96,7 @@ class SN74165N():
             X = (X << 1) + self._rx.value()
             self._clock.value(0)
             time.sleep_ms(100)
-            print(i, X)
+        
         return(X)
 
 def randnum() -> int:
@@ -121,7 +121,7 @@ def combo_lock():
             while guess != rand_int:
                 while button.value():
                     continue
-                
+
                 guess = shiftreg.read()
 
                 if guess == rand_int:
