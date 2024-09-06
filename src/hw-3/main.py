@@ -3,7 +3,7 @@ import random
 import _thread
 from machine import Pin
 
-def p1():
+def leds():
     button1 = Pin(15, Pin.IN, Pin.PULL_UP)
     button2 = Pin(14, Pin.IN, Pin.PULL_UP)
     led1 = Pin(16, Pin.OUT)
