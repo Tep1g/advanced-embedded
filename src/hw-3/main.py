@@ -55,9 +55,9 @@ def counter():
     counter_ptr = [0]
     lock = _thread.allocate_lock()
     
-    # Configure button counter objects to increment on falling edge
-    ButtonCounter(15, Pin.PULL_UP, Pin.IRQ_FALLING, counter_ptr, 10, lock)
-    ButtonCounter(14, Pin.PULL_UP, Pin.IRQ_FALLING, counter_ptr, 1, lock)
+    # Configure button counter objects to increment when let go
+    ButtonCounter(15, Pin.PULL_UP, Pin.IRQ_RISING, counter_ptr, 10, lock)
+    ButtonCounter(14, Pin.PULL_UP, Pin.IRQ_RISING, counter_ptr, 1, lock)
 
     try:
         while True:
