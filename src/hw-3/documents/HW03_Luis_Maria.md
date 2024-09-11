@@ -10,13 +10,9 @@ if __name__ == "__main__":
     led1 = Pin(16, Pin.OUT)
     led2 = Pin(17, Pin.OUT)
 
-    try:
-        while True:
-            led1.value((1 - button1.value()) & (1 - button2.value()))
-            led2.value((1 - button1.value()) ^ (1 - button2.value()))
-    
-    except KeyboardInterrupt:
-        pass
+    while True:
+        led1.value((1 - button1.value()) & (1 - button2.value()))
+        led2.value((1 - button1.value()) ^ (1 - button2.value()))
 ```
 
 <br>
@@ -69,12 +65,8 @@ if __name__ == "__main__":
     ButtonCounter(15, Pin.PULL_UP, Pin.IRQ_RISING, counter_ptr, 10, lock)
     ButtonCounter(14, Pin.PULL_UP, Pin.IRQ_RISING, counter_ptr, 1, lock)
 
-    try:
-        while True:
-            print(counter_ptr[0])
-    
-    except KeyboardInterrupt:
-        pass
+    while True:
+        print(counter_ptr[0])
 ```
 
 <div style="page-break-after: always;"></div>
@@ -138,12 +130,7 @@ class SN74165N():
 if __name__ == "__main__":
     """Test Script"""
     shiftreg = SN74165N(clk_gpio=10, ld_gpio=9, rx_gpio=12)
-    
-    try:
-        print(shiftreg.read())
-    
-    except KeyboardInterrupt:
-        pass
+    print(shiftreg.read())
 ```
 
 <br>
@@ -163,29 +150,25 @@ if __name__ == "__main__":
     button = Pin(15, Pin.IN, Pin.PULL_UP)
     led = Pin(16, Pin.OUT)
 
-    try:
-        while True:
-            print("Game Start")
-            guess_result = ""
-            rand_int = randnum()
-            guess = -1
-            led.off()
-            while guess != rand_int:
-                while button.value():
-                    continue
+    while True:
+        print("Game Start")
+        guess_result = ""
+        rand_int = randnum()
+        guess = -1
+        led.off()
+        while guess != rand_int:
+            while button.value():
+                continue
 
-                guess = shiftreg.read()
+            guess = shiftreg.read()
 
-                if guess == rand_int:
-                    guess_result = "correct"
-                    led.on()
-                elif guess > rand_int:
-                    guess_result = "too high"
-                else:
-                    guess_result = "too low"
-                
-                print("Guess {} was {}".format(guess, guess_result))
-
-    except KeyboardInterrupt:
-        pass
+            if guess == rand_int:
+                guess_result = "correct"
+                led.on()
+            elif guess > rand_int:
+                guess_result = "too high"
+            else:
+                guess_result = "too low"
+            
+            print("Guess {} was {}".format(guess, guess_result))
 ```

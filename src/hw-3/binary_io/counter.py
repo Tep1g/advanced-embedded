@@ -43,9 +43,5 @@ if __name__ == "__main__":
     ButtonCounter(15, Pin.PULL_UP, Pin.IRQ_RISING, counter_ptr, 10, lock)
     ButtonCounter(14, Pin.PULL_UP, Pin.IRQ_RISING, counter_ptr, 1, lock)
 
-    try:
-        while True:
-            print(counter_ptr[0])
-    
-    except KeyboardInterrupt:
-        pass
+    while True:
+        print(counter_ptr[0])

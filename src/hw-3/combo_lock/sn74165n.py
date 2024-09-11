@@ -37,9 +37,4 @@ class SN74165N():
 if __name__ == "__main__":
     """Test Script"""
     shiftreg = SN74165N(clk_gpio=10, ld_gpio=9, rx_gpio=12)
-    
-    try:
-        print(shiftreg.read())
-    
-    except KeyboardInterrupt:
-        pass
+    print(shiftreg.read())

@@ -6,10 +6,6 @@ if __name__ == "__main__":
     led1 = Pin(16, Pin.OUT)
     led2 = Pin(17, Pin.OUT)
 
-    try:
-        while True:
-            led1.value((1 - button1.value()) & (1 - button2.value()))
-            led2.value((1 - button1.value()) ^ (1 - button2.value()))
-    
-    except KeyboardInterrupt:
-        pass
+    while True:
+        led1.value((1 - button1.value()) & (1 - button2.value()))
+        led2.value((1 - button1.value()) ^ (1 - button2.value()))
