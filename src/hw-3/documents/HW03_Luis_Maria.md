@@ -153,25 +153,24 @@ if __name__ == "__main__":
     button = Pin(15, Pin.IN, Pin.PULL_UP)
     led = Pin(16, Pin.OUT)
 
-    while True:
-        print("Game Start")
-        guess_result = ""
-        rand_int = randnum()
-        guess = -1
-        led.off()
-        while guess != rand_int:
-            while button.value():
-                continue
+    print("Combo Lock Start")
+    guess_result = ""
+    rand_int = randnum()
+    guess = -1
+    led.off()
+    while guess != rand_int:
+        while button.value():
+            continue
 
-            guess = shiftreg.read()
+        guess = shiftreg.read()
 
-            if guess == rand_int:
-                guess_result = "correct"
-                led.on()
-            elif guess > rand_int:
-                guess_result = "too high"
-            else:
-                guess_result = "too low"
-            
-            print("Guess {} was {}".format(guess, guess_result))
+        if guess == rand_int:
+            guess_result = "correct"
+            led.on()
+        elif guess > rand_int:
+            guess_result = "too high"
+        else:
+            guess_result = "too low"
+        
+        print("Guess {} was {}".format(guess, guess_result))
 ```
