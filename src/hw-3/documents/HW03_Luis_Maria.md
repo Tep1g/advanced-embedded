@@ -1,6 +1,6 @@
 # Binary I/O
-## 1)
-### **leds.py**
+## 1) leds.py
+### **Program**
 ```py
 from machine import Pin
 
@@ -17,16 +17,22 @@ if __name__ == "__main__":
 
 <br>
 
-## 2)
-### **counter.py**
+### **Test**
+Click image to access video
+<br>
+
+[![leds.py](https://img.youtube.com/vi/fqOfEFV8fvA/0.jpg)](https://www.youtube.com/watch?v=fqOfEFV8fvA)
+
+<div style="page-break-after: always;"></div>
+
+## 2) counter.py
+### **Program**
 ```py
 import _thread
 from machine import Pin
 
 class ButtonCounter():
     """
-    Button Counter
-
     Increment a counter when an IRQ interrupt is triggered.
 
     :param int button_pin: Button GPIO pin
@@ -69,11 +75,20 @@ if __name__ == "__main__":
         print(counter_ptr[0])
 ```
 
+<br>
+
+### **Test**
+Click image to access video
+<br>
+
+[![leds.py](https://img.youtube.com/vi/4eU21yN7zWA/0.jpg)](https://www.youtube.com/watch?v=4eU21yN7zWA)
+
+
 <div style="page-break-after: always;"></div>
 
 # Combination Lock
-## 3)
-### **rand.py**
+## 3) rand.py
+### **Program**
 ```py
 from random import randrange
 
@@ -91,8 +106,13 @@ if __name__ == "__main__":
 
 <br>
 
-## 4)
-### **sn74165n.py**
+### **Test**
+![alt text](images/image.png)
+
+<br>
+
+## 4) sn74165n.py
+### **Program**
 ```py
 import time
 from machine import Pin
@@ -138,8 +158,18 @@ if __name__ == "__main__":
 
 <br>
 
-## 5)
-### **combo_lock.py**
+### **Test**
+
+174 is 0b10101110
+
+![alt text](images/image-1.png)
+
+<img src="images/image-2.jpg" alt="image" width="400"/>
+
+<div style="page-break-after: always;"></div>
+
+## 5) combo_lock.py
+### **Program**
 ```py
 from machine import Pin
 from sn74165n import SN74165N
@@ -153,7 +183,7 @@ if __name__ == "__main__":
     button = Pin(15, Pin.IN, Pin.PULL_UP)
     led = Pin(16, Pin.OUT)
 
-    print("Combo Lock Start")
+    print("Combo Lock Start\n")
     guess_result = ""
     rand_int = randnum()
     guess = -1
@@ -172,5 +202,16 @@ if __name__ == "__main__":
         else:
             guess_result = "too low"
         
-        print("Guess {} was {}".format(guess, guess_result))
+        if guess != rand_int:
+            print("Actual Code: {}".format(rand_int))
+
+        print("Guess {} was {}\n".format(guess, guess_result))
 ```
+
+<div style="page-break-after: always;"></div>
+
+### **Test**
+![alt text](images/image-3.png)
+
+LED turns on
+![alt text](images/image-4.png)

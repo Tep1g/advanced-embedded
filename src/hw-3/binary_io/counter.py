@@ -3,8 +3,6 @@ from machine import Pin
 
 class ButtonCounter():
     """
-    Button Counter
-
     Increment a counter when an IRQ interrupt is triggered.
 
     :param int button_pin: Button GPIO pin

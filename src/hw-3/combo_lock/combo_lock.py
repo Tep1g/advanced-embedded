@@ -10,7 +10,7 @@ if __name__ == "__main__":
     button = Pin(15, Pin.IN, Pin.PULL_UP)
     led = Pin(16, Pin.OUT)
 
-    print("Combo Lock Start")
+    print("Combo Lock Start\n")
     guess_result = ""
     rand_int = randnum()
     guess = -1
@@ -29,4 +29,7 @@ if __name__ == "__main__":
         else:
             guess_result = "too low"
         
-        print("Guess {} was {}".format(guess, guess_result))
+        if guess != rand_int:
+            print("Code: {}".format(rand_int))
+
+        print("Guess {} was {}\n".format(guess, guess_result))
