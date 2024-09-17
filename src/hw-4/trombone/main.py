@@ -2,6 +2,7 @@ from machine import Pin, ADC, PWM
 from math import ceil
 
 MAX_U16 = (2 ** 16) - 1
+HALF_U16 = ceil(MAX_U16 / 2)
 
 MIN_FREQ = 220
 MAX_FREQ = 440
@@ -24,7 +25,7 @@ if __name__ == "__main__":
             freq = int(((joystick.read_u16() / MAX_U16) * FREQ_RANGE) + MIN_FREQ)
             trombone.freq(freq)
             if not trombone_is_on:
-                trombone.duty_u16(ceil(MAX_U16 / 2))
+                trombone.duty_u16(HALF_U16)
                 trombone_is_on = True
         
         elif trombone_is_on:
