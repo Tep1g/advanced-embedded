@@ -11,12 +11,12 @@ FREQ_FACTOR = ((MAX_FREQ - MIN_FREQ) / MAX_U16)
 
 BUTTON_GPIO = 14
 ADC_PORT = 0
-BUZZER_GPIO = 28
+SPEAKER_GPIO = 28
 
 if __name__ == "__main__":
     play_btn = Pin(BUTTON_GPIO, Pin.IN, Pin.PULL_UP)
     joystick = ADC(ADC_PORT)
-    trombone = PWM(Pin(BUZZER_GPIO, Pin.OUT))
+    trombone = PWM(Pin(SPEAKER_GPIO, Pin.OUT))
     trombone.duty_u16(0)
     trombone_is_on = False
     
