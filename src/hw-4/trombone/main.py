@@ -7,7 +7,7 @@ HALF_U16 = ceil(MAX_U16 / 2)
 MIN_FREQ = 220
 MAX_FREQ = 440
 
-FREQ_RANGE = MAX_FREQ - MIN_FREQ
+FREQ_FACTOR = ((MAX_FREQ - MIN_FREQ) / MAX_U16)
 
 BUTTON_GPIO = 14
 ADC_PORT = 0
@@ -22,7 +22,7 @@ if __name__ == "__main__":
     
     while True:
         if play_btn.value() == 0:
-            freq = int(((joystick.read_u16() / MAX_U16) * FREQ_RANGE) + MIN_FREQ)
+            freq = int((joystick.read_u16() * FREQ_FACTOR) + MIN_FREQ)
             trombone.freq(freq)
             if not trombone_is_on:
                 trombone.duty_u16(HALF_U16)
