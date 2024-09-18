@@ -17,7 +17,7 @@ class ServoMotor():
 
     def set_speed(self, freq_hz: int):
         """
-        Set the servo speed by passing a frequency
+        Set the servo speed by passing a PWM frequency
         
         :param int freq_hz: Between 50Hz (slowest) and 330Hz (fastest)"""
         if not (_MIN_FREQ_HZ <= freq_hz <= _MAX_FREQ_HZ):
