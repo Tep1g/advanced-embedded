@@ -1,14 +1,13 @@
 import time
-from machine import Pin, ADC, PWM
-from servo import update_servo_angle
-from sense import read_voltage
+from servo import ServoMotor
+from sensor import LightSensor
 
 if __name__ == "__main__":
-    light = ADC(2)
-    servo = PWM(Pin(28, Pin.OUT))
-    servo.freq(50)
+    light_sensor = LightSensor(adc_port=2)
+    servo = ServoMotor(pwm_gpio=28)
+    servo.set_speed(50)
     angle = 135
-    last_voltage = read_voltage(light)
+    last_voltage = light_sensor.read_voltage()
     increase_angle = True
     while True:
         if increase_angle:
@@ -16,9 +15,9 @@ if __name__ == "__main__":
         else:
             angle -= 3
         angle = max(min(angle, 270), 0)
-        update_servo_angle(servo, angle)
+        servo.set_angle(angle)
         time.sleep_ms(1)
-        new_voltage = read_voltage(light)
+        new_voltage = light_sensor.read_voltage()
         if new_voltage < last_voltage:
             increase_angle = not increase_angle
         last_voltage = new_voltage
