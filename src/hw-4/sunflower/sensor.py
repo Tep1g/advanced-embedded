@@ -4,7 +4,7 @@ class LightSensor():
     """Light Sensor"""
 
     _VDD = 3.3
-    _MAX_U16 = (2 ** 8) - 1
+    _MAX_U16 = (2 ** 16) - 1
 
     _V_FACTOR = _VDD / _MAX_U16
 
