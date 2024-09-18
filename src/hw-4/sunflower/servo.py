@@ -19,7 +19,8 @@ class ServoMotor():
         """
         Set the servo speed by passing a PWM frequency
         
-        :param int freq_hz: Between 50Hz (slowest) and 330Hz (fastest)"""
+        :param int freq_hz: Between 50Hz (slowest) and 330Hz (fastest)
+        """
         if not (_MIN_FREQ_HZ <= freq_hz <= _MAX_FREQ_HZ):
             raise ValueError("Invalid frequency for servo speed control: {}, must be between {} and {} inclusive".format(freq_hz, _MIN_FREQ_HZ, _MAX_FREQ_HZ))
 
