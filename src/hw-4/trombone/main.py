@@ -22,7 +22,8 @@ if __name__ == "__main__":
     
     while True:
         if play_btn.value() == 0:
-            freq = int(joystick.read_u16() * FREQ_FACTOR) + MIN_FREQ
+            freq = round(joystick.read_u16() * FREQ_FACTOR) + MIN_FREQ
+            freq = max(min(freq, MAX_FREQ), MIN_FREQ)
             trombone.freq(freq)
             if not trombone_is_on:
                 trombone.duty_u16(HALF_U16)
