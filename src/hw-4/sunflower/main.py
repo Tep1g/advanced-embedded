@@ -2,27 +2,25 @@ import time
 from servo import ServoMotor
 from sensor import LightSensor
 
-LDR_ADC_PORT = 2
-PWM_GPIO = 28
+LDR_ADC_GPIO = 28
+SERVO_PWM_GPIO = 22
 SERVO_SPEED_HZ = 50
+ANGLE_RES = 15
 
 if __name__ == "__main__":
-    light_sensor = LightSensor(adc_port=LDR_ADC_PORT)
-    servo_motor = ServoMotor(pwm_gpio=PWM_GPIO)
+    light_sensor = LightSensor(adc_pin=LDR_ADC_GPIO)
+    servo_motor = ServoMotor(pwm_gpio=SERVO_PWM_GPIO)
     servo_motor.set_speed(SERVO_SPEED_HZ)
-    angle = 135
-    last_voltage = light_sensor.read_voltage()
-    increase_angle = True
-    while True:
-        if increase_angle:
-            angle += 3
-        else:
-            angle -= 3
-        angle = max(min(angle, ServoMotor.MAX_ANGLE), ServoMotor.MAX_ANGLE)
+    angle = ServoMotor.MIN_ANGLE
+    lowest_voltage = 100
+
+    while angle <= ServoMotor.MAX_ANGLE:
         servo_motor.set_angle(angle)
-        time.sleep_ms(1)
-        new_voltage = light_sensor.read_voltage()
-        if new_voltage < last_voltage:
-            increase_angle = not increase_angle
-        last_voltage = new_voltage
-        print("Current voltage: {:.2f}, Current angle {}".format(new_voltage, angle))
+        time.sleep_ms(500)
+        voltage = light_sensor.read_voltage()
+        if lowest_voltage < voltage:
+            lowest_voltage = voltage
+            best_angle = angle
+        angle += ANGLE_RES
+    
+    print("Most optimal angle: {}".format(best_angle))
