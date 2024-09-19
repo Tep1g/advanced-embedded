@@ -12,7 +12,7 @@ if __name__ == "__main__":
     servo_motor = ServoMotor(pwm_gpio=SERVO_PWM_GPIO)
     servo_motor.set_speed(SERVO_SPEED_HZ)
     angle = ServoMotor.MIN_ANGLE
-    lowest_voltage = 100
+    highest_voltage = 0
 
     # Delay to grab the motor so it doesn't fly off
     time.sleep(3)
@@ -23,14 +23,14 @@ if __name__ == "__main__":
         voltage = light_sensor.read_voltage()
         print("Angle: {} deg, Voltage: {:.2f}V".format(angle, voltage))
 
-        # Pull-down LDR
-        if voltage < lowest_voltage:
-            lowest_voltage = voltage
+        # Pull-up LDR
+        if voltage > highest_voltage:
+            highest_voltage = voltage
             best_angle = angle
         angle += ANGLE_RES
     
     servo_motor.set_angle(best_angle)
-    print("Most optimal angle: {}".format(best_angle))
+    print("Optimal angle: {}".format(best_angle))
     
     # Delay long enough for the servo to move into place
     time.sleep_ms(500)
