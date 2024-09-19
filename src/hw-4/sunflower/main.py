@@ -26,4 +26,5 @@ if __name__ == "__main__":
             best_angle = angle
         angle += ANGLE_RES
     
+    servo_motor.set_angle(best_angle)
     print("Most optimal angle: {}".format(best_angle))
