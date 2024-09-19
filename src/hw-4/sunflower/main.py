@@ -14,6 +14,9 @@ if __name__ == "__main__":
     angle = ServoMotor.MIN_ANGLE
     lowest_voltage = 100
 
+    # Delay to grab the motor so it doesn't fly off
+    time.sleep(3)
+
     while angle <= ServoMotor.MAX_ANGLE:
         servo_motor.set_angle(angle)
         time.sleep_ms(500)
@@ -28,3 +31,6 @@ if __name__ == "__main__":
     
     servo_motor.set_angle(best_angle)
     print("Most optimal angle: {}".format(best_angle))
+    
+    # Delay long enough for the servo to move into place
+    time.sleep_ms(500)
