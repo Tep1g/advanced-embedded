@@ -3,10 +3,10 @@ from machine import ADC, Pin
 class LightSensor():
     """Light Sensor"""
 
-    _VDD = 3.3
+    _V_REF = 3.3
     _MAX_U16 = (2 ** 16) - 1
 
-    _V_FACTOR = _VDD / _MAX_U16
+    _V_FACTOR = _V_REF / _MAX_U16
 
     def __init__(self, adc_pin: int):
         """
