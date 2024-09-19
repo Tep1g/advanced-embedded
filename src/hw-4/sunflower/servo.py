@@ -47,7 +47,7 @@ class ServoMotor():
 
 if __name__ == "__main__":
     """Test Script"""
-    servo = ServoMotor(pwm_gpio=28)
+    servo = ServoMotor(pwm_gpio=22)
     servo.set_speed(freq_hz=50)
     while True:
         angle = int(input("Enter new servo angle: "))
