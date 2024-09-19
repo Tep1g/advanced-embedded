@@ -18,7 +18,10 @@ if __name__ == "__main__":
         servo_motor.set_angle(angle)
         time.sleep_ms(500)
         voltage = light_sensor.read_voltage()
-        if lowest_voltage < voltage:
+        print("Angle: {} deg, Voltage: {:.2f}V".format(angle, voltage))
+
+        # Pull-down LDR
+        if voltage < lowest_voltage:
             lowest_voltage = voltage
             best_angle = angle
         angle += ANGLE_RES
