@@ -1,4 +1,4 @@
-from machine import ADC
+from machine import ADC, Pin
 
 class LightSensor():
     """Light Sensor"""
