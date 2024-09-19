@@ -22,6 +22,5 @@ class LightSensor():
 
 if __name__ == "__main__":
     """Test Script"""
-    while True:
-        light_sensor = LightSensor(adc_pin=28)
-        print(light_sensor.read_voltage())
+    light_sensor = LightSensor(adc_pin=28)
+    print(light_sensor.read_voltage())
