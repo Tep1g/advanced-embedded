@@ -1,8 +1,7 @@
 from machine import Pin, ADC, PWM
-from math import ceil
 
 MAX_U16 = (2 ** 16) - 1
-HALF_U16 = ceil(MAX_U16 / 2)
+HALF_U16 = round(MAX_U16 / 2)
 
 MIN_FREQ = 220
 MAX_FREQ = 440
