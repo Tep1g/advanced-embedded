@@ -36,7 +36,7 @@ if __name__ == "__main__":
                 trombone.duty_u16(HALF_U16)
                 trombone_is_on = True
 
-            voltage = round(js_adc_val * VOLT_FACTOR)
+            voltage = js_adc_val * VOLT_FACTOR
             print("Frequency: {}, Voltage: {:.2f}".format(freq, voltage))
         
         elif trombone_is_on:
