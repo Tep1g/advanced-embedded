@@ -44,4 +44,4 @@ class BidirectionalMotor():
 if __name__ == "__main__":
     motor = BidirectionalMotor(cw_gpio=16, ccw_gpio=17, freq_hz=20_000)
     while (True):
-        motor.set_speed_pct(int(input("Set DC servo motor speed between {} and {} pct: ".format(motor.MIN_SPEED_PCT, motor.MAX_SPEED_PCT))))
+        motor.set_speed_pct(int(input("Set DC servo motor speed percentage: ".format(motor.MIN_SPEED_PCT, motor.MAX_SPEED_PCT))))
