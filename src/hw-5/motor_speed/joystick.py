@@ -12,5 +12,5 @@ class Joystick():
     def __init__(self, adc_port):
         self._adc = ADC(adc_port)
 
-    def read_joystick(self) -> float:
+    def read(self) -> float:
         return ((self._adc.read_u16() * JS_FACTOR) + MIN_JS_VALUE)
