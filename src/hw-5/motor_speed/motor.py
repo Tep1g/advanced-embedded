@@ -5,8 +5,8 @@ MAX_SPEED_PCT = const(100)
 
 SEC_TO_NS_FLOAT = const(1_000_000_000.0)
 
-class MonodirectionalMotor():
-    
+class UnidirectionalMotor():
+    """Unidirectional Motor"""
     def __init__(self, pwm_gpio: int, freq_hz: int):
         self._pwm = PWM(Pin(pwm_gpio, Pin.OUT))
         self._pwm.duty_ns(0)
@@ -24,12 +24,13 @@ class MonodirectionalMotor():
         self._pwm.duty_ns(self._duty_ns * speed_pct / 100)
 
 class BidirectionalMotor():
+    """Bidirectional Motor"""
     MIN_SPEED_PCT = const(-100)
     MAX_SPEED_PCT = const(100)
     
     def __init__(self, cw_gpio: int, ccw_gpio: int, freq_hz: int):
-        self.cw = MonodirectionalMotor(pwm_gpio=cw_gpio, freq_hz=freq_hz)
-        self.ccw = MonodirectionalMotor(pwm_gpio=ccw_gpio, freq_hz=freq_hz)
+        self.cw = UnidirectionalMotor(pwm_gpio=cw_gpio, freq_hz=freq_hz)
+        self.ccw = UnidirectionalMotor(pwm_gpio=ccw_gpio, freq_hz=freq_hz)
 
     def set_speed_pct(self, speed_pct: int):
         if not (self.MIN_SPEED_PCT <= speed_pct <= self.MAX_SPEED_PCT):
