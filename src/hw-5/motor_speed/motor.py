@@ -24,5 +24,5 @@ class MonodirectionalMotor():
 
 class BidirectionalMotor():
     def __init__(self, cw_gpio: int, ccw_gpio: int, freq_hz: int):
-        self.cw_motor = MonodirectionalMotor(pwm_gpio=cw_gpio, freq_hz=freq_hz)
-        self.ccw_motor = MonodirectionalMotor(pwm_gpio=ccw_gpio, freq_hz=freq_hz)
+        self.cw = MonodirectionalMotor(pwm_gpio=cw_gpio, freq_hz=freq_hz)
+        self.ccw = MonodirectionalMotor(pwm_gpio=ccw_gpio, freq_hz=freq_hz)
