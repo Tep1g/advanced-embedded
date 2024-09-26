@@ -2,10 +2,10 @@ from machine import PWM, Pin
 
 SEC_TO_NS_FLOAT = const(1_000_000_000.0)
 
-MIN_SPEED_PCT = const(0)
-MAX_SPEED_PCT = const(100)
-
 class MonodirectionalMotor():
+    MIN_SPEED_PCT = const(0)
+    MAX_SPEED_PCT = const(100)
+    
     def __init__(self, pwm_gpio: int, freq_hz: int):
         self._pwm = PWM(Pin(pwm_gpio, Pin.OUT))
         self._pwm.duty_ns(0)
