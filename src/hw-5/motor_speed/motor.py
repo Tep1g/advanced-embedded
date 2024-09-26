@@ -16,7 +16,7 @@ class MonodirectionalMotor():
         self._duty_ns = round(SEC_TO_NS_FLOAT / freq_hz)
         self._pwm.freq(freq_hz)
 
-    def set_speed_pct(self, speed_pct: float):
+    def set_speed_pct(self, speed_pct: int):
         if not (self.MIN_SPEED_PCT <= speed_pct <= self.MAX_SPEED_PCT):
             raise ValueError("Invalid monodirectional speed percentage: {}, must be within {} and {} inclusive.".format(speed_pct, self.MIN_SPEED_PCT, self.MAX_SPEED_PCT))
         
@@ -30,7 +30,7 @@ class BidirectionalMotor():
         self.cw = MonodirectionalMotor(pwm_gpio=cw_gpio, freq_hz=freq_hz)
         self.ccw = MonodirectionalMotor(pwm_gpio=ccw_gpio, freq_hz=freq_hz)
 
-    def set_speed_pct(self, speed_pct: float):
+    def set_speed_pct(self, speed_pct: int):
         if not (self.MIN_SPEED_PCT <= speed_pct <= self.MAX_SPEED_PCT):
             raise ValueError("Invalid bidirectional speed percentage: {}, must be within {} and {} inclusive.".format(speed_pct, self.MIN_SPEED_PCT, self.MAX_SPEED_PCT))
 
