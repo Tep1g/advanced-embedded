@@ -14,3 +14,8 @@ class Joystick():
 
     def read(self) -> float:
         return ((self._adc.read_u16() * JS_FACTOR) + MIN_JS_VALUE)
+    
+if __name__ == "__main__":
+    joystick = Joystick(adc_port=1)
+    while(1):
+        print("Number converted from joystick: {}".format(joystick.read()))
