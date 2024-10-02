@@ -7,7 +7,7 @@ from math import sin, cos
 spi = SPI(0, baudrate=40000000,polarity=0,phase=0,bits=8,sck=2,mosi=3,miso=4)
 def Help():
     print('LCD Library for the 480x320 ST7766 graphics driver')
-    print('rev 3/16/24  JSG')
+    print('rev 6/30/24  JSG')
     print('uses pins 2,3,4,5,6,7')
     print(' ')
     print('Functions:')
@@ -30,6 +30,9 @@ def Help():
     print('Card(Value, Suit, x, y)         Draw a playing cart at (x,y)    Size = 45x65')
     print('Y = Sort(X)                     Return the order of the variables in array X')
     print('Y = Shuffle()                   Shuffle a deck of 52 playing cards.  Y is random order of 0..51')
+    print('Plot(x,y,x0,y0,x1,y1,color)     plot x vs. y with scaling (x0,y0) to (x1,y1)')
+    print('BarChart(x, color1, color2)     plot x as a bar chart.  Color1 = bar color, outline = color2');
+    print('Title(Message, color1, color2)  place message at the top of the display in color1, background = color2')
     print(' ')
     print('Executing Times (test case)')
     print('Clear:     116.332 ms')
@@ -252,6 +255,10 @@ def Init():
 
 
 def Address_Set(x0, y0, x1, y1):
+    x0 = int(x0)
+    y0 = int(y0)
+    x1 = int(x1)
+    y1 = int(y1)
     Write_cmd(0x2A)    # column range
     Write16(x0)
     Write16(x1)   
@@ -278,6 +285,8 @@ def RGB(r, g, b):
 
 
 def Pixel(x, y, color):
+    x = int(x)
+    y = int(y)
     dc.value(0)
     cs.value(0)
     spi.write(bytearray([0x2A]))
@@ -294,6 +303,8 @@ def Pixel(x, y, color):
     cs.value(1)
     
 def Pixel2(x, y, color):
+    x = int(x)
+    y = int(y)
     Address_Set(x, y, x+1, y+1)
     b1 = bytes([color>>8,color&0xFF])
     X = b1*4
@@ -302,6 +313,10 @@ def Pixel2(x, y, color):
     EndWrite()
     
 def Line(x0, y0, x1, y1, color):
+    x0 = int(x0)
+    y0 = int(y0)
+    x1 = int(x1)
+    y1 = int(y1)
     if(x0==x1):
         if(y1>y0):
             Solid_Box(x0,y0,x0,y1,color)
@@ -357,10 +372,14 @@ def Line(x0, y0, x1, y1, color):
                     ix -= 1
 
 def Box(x0, y0, x1, y1, color):
-    Line(x0, y0, x1, y0, color)
-    Line(x1, y0, x1, y1, color)
-    Line(x1, y1, x0, y1, color)
-    Line(x0, y1, x0, y0, color)
+    a0 = int(min(x0,x1))
+    a1 = int(max(x0,x1))
+    b0 = int(min(y0,y1))
+    b1 = int(max(y0,y1))
+    Line(a0, b0, a1, b0, color)
+    Line(a1, b0, a1, b1, color)
+    Line(a1, b1, a0, b1, color)
+    Line(a0, b1, a0, b0, color)
 
 def Lander(x, y, color):
     x = int(x)
@@ -372,6 +391,8 @@ def Lander(x, y, color):
 # output a number at point (x,y) with foreground color1 and background color0
         
 def Number(Value, Digits, Decimals, x, y, color1, color0):
+    x = int(x)
+    y = int(y)
     Value = Value % 10**(Digits-Decimals)
     format = "%"+str(Digits)+"."+str(Decimals)+"f"
     X = str(format%Value)
@@ -387,6 +408,8 @@ def Number(Value, Digits, Decimals, x, y, color1, color0):
         
 def Text(Message, x, y, color1, color0):
     global Font
+    x = int(x)
+    y = int(y)
     N = len(Message)
     Con_high = color1 >> 8
     Con_low = color1 & 0xFF
@@ -412,6 +435,8 @@ def Text(Message, x, y, color1, color0):
 # -- Scaling = 2
       
 def Number2(Value, Digits, Decimals, x, y, color1, color0):
+    x = int(x)
+    y = int(y)
     Value = Value % 10**(Digits-Decimals)
     format = "%"+str(Digits)+"."+str(Decimals)+"f"
     X = str(format%Value)
@@ -426,6 +451,8 @@ def Number2(Value, Digits, Decimals, x, y, color1, color0):
         
 def Text2(Message, x, y, color1, color0):
     global Font
+    x = int(x)
+    y = int(y)
     N = len(Message)
     Con_high = color1 >> 8
     Con_low = color1 & 0xFF
@@ -485,10 +512,14 @@ def Clear(color):
     EndWrite()
     
 def Solid_Box(x1, y1, x2, y2, color):
-    Address_Set(x1, y1, x2, y2)
+    a1 = int(min(x1,x2))
+    a2 = int(max(x1,x2))
+    b1 = int(min(y1,y2))
+    b2 = int(max(y1,y2))
+    Address_Set(a1, b1, a2, b2)
     X = bytearray([color>>8,color,color>>8,color,color>>8,color,color>>8,color,color>>8,color,color>>8,color,color>>8,color,color>>8,color])
     StartWrite()
-    N = int((x2-x1+1)*(y2-y1+1)/8)+1
+    N = int((a2-a1+1)*(b2-b1+1)/8)+1
     for i in range(0, N):
             Write16xN(X)
     EndWrite()
@@ -518,6 +549,8 @@ def Circle(x0, y0, r, color):
       
         
 def Circle2(x0, y0, r, color):
+    x0 = int(x0)
+    y0 = int(y0)
     N = int(6.28*r)+1
     for i in range(0, N):
         x = x0 + int(r*cos(6.28*i/N))
@@ -526,6 +559,8 @@ def Circle2(x0, y0, r, color):
 # -- LED Functions -----------------
 
 def Light(OnOff, x, y, color):
+    x = int(x)
+    y = int(y)
     Address_Set(x, y, x+9, y+9)
     C1 = bytearray([color>>8,color,color>>8,color,color>>8,color,color>>8,color,color>>8,color,color>>8,color,color>>8,color,color>>8,color,color>>8,color,color>>8,color])
     C0 = bytearray([color>>8,color,0,0,color,0,0,0,0,0,0,0,0,0,0,0,0,0,color>>8,color])
@@ -557,6 +592,8 @@ def Light(OnOff, x, y, color):
         EndWrite()
         
 def Binary_Out(X, x, y):
+    x = int(x)
+    y = int(y)
     for i in range(0,16):
         if(X & (0x8000 >> i)):
             Light(1, x+i*15, y, 0xFFFF)
@@ -564,6 +601,8 @@ def Binary_Out(X, x, y):
             Light(0, x+i*15, y, 0xFFFF)
  
 def Bar_Out(X, x, y):
+    x = int(x)
+    y = int(y)
     for i in range(1,17):
         if(X == i):
             Light(1, x+(16-i)*15, y, 0xFFFF)
@@ -573,6 +612,8 @@ def Bar_Out(X, x, y):
 # - Dice and Card Games
 
 def Dice(N, x, y, color1, color0):
+    x = int(x)
+    y = int(y)
     Solid_Box(x, y, x+50, y+50, color0)
     Box(x, y, x+50, y+50, 0)
     if(N == 1):
@@ -594,6 +635,8 @@ def Dice(N, x, y, color1, color0):
             Light(1, x+12*dx+8, y+12*dy+8, color1)
 
 def Card(N, S, x, y):
+    x = int(x)
+    y = int(y)
     White = RGB(250,250,250);
     Red = RGB(250,0,0)
     Black = 0
@@ -633,3 +676,47 @@ def Shuffle():
         X.append(random.uniform(0,1))
     Y = Sort(X)
     return(Y)
+
+
+def BarChart(X, color1, color2):
+    n = len(X)
+    Xmax = 0.01
+    for i in range(0,n):
+        Xmax = max(Xmax, X[i])
+    Navy = RGB(0,0,5)
+    White = RGB(150,150,150)
+    Red = RGB(150,0,0)
+    Clear(Navy)
+    Line(10,250,470,250,White)
+    dx = 450/n
+    for i in range(0,n):
+        x1 = int(dx*i)
+        x2 = int(x1 + dx)
+        y1 = 250
+        y2 = 250 - int(X[i]/Xmax*200)
+        Solid_Box(x1,y2,x2,y1,color2)
+        Box(x1,y1,x2,y2,color1)
+        Line(x1 + dx/2,y1+5,x1 + dx/2,y1-5,White)
+
+def Title(Message, Color1, Color0):
+   N = len(Message)
+   Text2(Message, 240-8*N, 5, Color1, Color0)
+   
+def Plot(X, Y, Xmin, Ymin, Xmax, Ymax, color):
+    n = len(X)
+    x0 = 30
+    x1 = 450
+    y0 = 30
+    y1 = 300
+    White = RGB(150,150,150)
+    Navy = RGB(0,0,5)
+    Box(x0,y0,x1,y1,White)
+    kX = (x1-x0)/(Xmax-Xmin)
+    kY = (y1-y0)/(Ymax-Ymin)
+    for i in range(0,n-1):
+        xa = x0 + (X[i]-Xmin)*kX
+        ya = y1 - (Y[i]-Ymin)*kY
+        xb = x0 + (X[i+1]-Xmin)*kX
+        yb = y1 - (Y[i+1]-Ymin)*kY
+        Line(xa,ya,xb,yb, color)
+        
