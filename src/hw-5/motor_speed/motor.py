@@ -1,24 +1,24 @@
 from machine import PWM, Pin
 
-MIN_SPEED_PCT = const(0)
-MAX_SPEED_PCT = const(100)
-
-SEC_TO_NS_FLOAT = const(1_000_000_000.0)
-
 class UnidirectionalMotor():
     """Unidirectional Motor"""
+
+    MIN_SPEED_PCT = const(0)
+    MAX_SPEED_PCT = const(100)
+    SEC_TO_NS_FLOAT = const(1_000_000_000.0)
+    
     def __init__(self, pwm_gpio: int, freq_hz: int):
         self._pwm = PWM(Pin(pwm_gpio, Pin.OUT))
         self._pwm.duty_ns(0)
         self._pwm.freq(freq_hz)
-        self._duty_ns = round(SEC_TO_NS_FLOAT / freq_hz)
+        self._duty_ns = round(self.SEC_TO_NS_FLOAT / freq_hz)
 
     def set_freq(self, freq_hz: int):
-        self._duty_ns = round(SEC_TO_NS_FLOAT / freq_hz)
+        self._duty_ns = round(self.SEC_TO_NS_FLOAT / freq_hz)
         self._pwm.freq(freq_hz)
 
     def set_speed_pct(self, speed_pct: int):
-        if not (MIN_SPEED_PCT <= speed_pct <= MAX_SPEED_PCT):
+        if not (self.MIN_SPEED_PCT <= speed_pct <= self.MAX_SPEED_PCT):
             raise ValueError("Invalid monodirectional speed percentage: {}, must be within {} and {} inclusive.".format(speed_pct, self.MIN_SPEED_PCT, self.MAX_SPEED_PCT))
         
         self._pwm.duty_ns(self._duty_ns * speed_pct / 100)
