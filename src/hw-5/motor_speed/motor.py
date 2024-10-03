@@ -29,19 +29,19 @@ class BidirectionalMotor():
     MAX_SPEED_PCT = const(100)
     
     def __init__(self, cw_gpio: int, ccw_gpio: int, freq_hz: int):
-        self.cw = UnidirectionalMotor(pwm_gpio=cw_gpio, freq_hz=freq_hz)
-        self.ccw = UnidirectionalMotor(pwm_gpio=ccw_gpio, freq_hz=freq_hz)
+        self._cw = UnidirectionalMotor(pwm_gpio=cw_gpio, freq_hz=freq_hz)
+        self._ccw = UnidirectionalMotor(pwm_gpio=ccw_gpio, freq_hz=freq_hz)
 
     def set_speed_pct(self, speed_pct: int):
         if not (self.MIN_SPEED_PCT <= speed_pct <= self.MAX_SPEED_PCT):
             raise ValueError("Invalid bidirectional speed percentage: {}, must be within {} and {} inclusive.".format(speed_pct, self.MIN_SPEED_PCT, self.MAX_SPEED_PCT))
 
         if speed_pct < 0:
-            self.cw.set_speed_pct(0)
-            self.ccw.set_speed_pct(abs(speed_pct))
+            self._cw.set_speed_pct(0)
+            self._ccw.set_speed_pct(abs(speed_pct))
         else:
-            self.ccw.set_speed_pct(0)
-            self.cw.set_speed_pct(speed_pct)
+            self._ccw.set_speed_pct(0)
+            self._cw.set_speed_pct(speed_pct)
 
 if __name__ == "__main__":
     motor = BidirectionalMotor(cw_gpio=16, ccw_gpio=17, freq_hz=20_000)
