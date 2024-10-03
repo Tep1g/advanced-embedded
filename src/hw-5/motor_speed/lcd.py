@@ -13,3 +13,9 @@ def init():
 
 def update_motor_speed(value: int):
     st7796.BarChart(X=[value], color1=RGB_WHITE, color2=RGB_BLACK)
+
+if __name__ == "__main__":
+    """Test Script"""
+    init()
+    while (True):
+        update_motor_speed(int(input("Enter new bar graph value: ")))
