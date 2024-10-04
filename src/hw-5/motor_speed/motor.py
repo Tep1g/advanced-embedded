@@ -23,8 +23,8 @@ class UnidirectionalMotor():
 
 class BidirectionalMotor():
     """Bidirectional Motor"""
-    MIN_BI_SPEED_PCT = const(-100)
-    MAX_BI_SPEED_PCT = const(100)
+    MIN_BI_SPEED_PCT = -UnidirectionalMotor.MAX_SPEED_PCT
+    MAX_BI_SPEED_PCT = UnidirectionalMotor.MAX_SPEED_PCT
     
     def __init__(self, cw_gpio: int, ccw_gpio: int):
         self._cw = UnidirectionalMotor(pwm_gpio=cw_gpio)
