@@ -5,9 +5,10 @@ class UnidirectionalMotor():
 
     MIN_SPEED_PCT = const(0)
     MAX_SPEED_PCT = const(100)
+    MIN_DUT_CYCLE_PCT = const(65)
     SEC_TO_NS_FLOAT = const(1_000_000_000)
     PWM_FREQ = const(20_000)
-    PWM_FACTOR = float((SEC_TO_NS_FLOAT / PWM_FREQ) / MAX_SPEED_PCT)
+    PWM_FACTOR = float((SEC_TO_NS_FLOAT / PWM_FREQ) / (MAX_SPEED_PCT - MIN_DUT_CYCLE_PCT))
     
     def __init__(self, pwm_gpio: int):
         self._pwm = PWM(Pin(pwm_gpio, Pin.OUT))
@@ -18,7 +19,9 @@ class UnidirectionalMotor():
         if not (self.MIN_SPEED_PCT <= speed_pct <= self.MAX_SPEED_PCT):
             raise ValueError("Invalid unidirectional speed percentage: {}, must be within {} and {} inclusive.".format(speed_pct, self.MIN_SPEED_PCT, self.MAX_SPEED_PCT))
         
-        self._pwm.duty_ns(round(speed_pct * self.PWM_FACTOR))
+        # DC motor doesn't spin below 65% duty cycle
+        # Current work around is to scale and offset it
+        self._pwm.duty_ns(round(speed_pct * self.PWM_FACTOR) + self.MIN_DUT_CYCLE_PCT)
 
 class BidirectionalMotor():
     """Bidirectional Motor"""
