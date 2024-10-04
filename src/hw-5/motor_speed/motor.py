@@ -17,7 +17,7 @@ class UnidirectionalMotor():
 
     def set_speed_pct(self, speed_pct: int):
         if not (self.MIN_SPEED_PCT <= speed_pct <= self.MAX_SPEED_PCT):
-            raise ValueError("Invalid monodirectional speed percentage: {}, must be within {} and {} inclusive.".format(speed_pct, self.MIN_SPEED_PCT, self.MAX_SPEED_PCT))
+            raise ValueError("Invalid unidirectional speed percentage: {}, must be within {} and {} inclusive.".format(speed_pct, self.MIN_SPEED_PCT, self.MAX_SPEED_PCT))
         
         self._pwm.duty_ns(round(self.PWM_DUTY_NS * speed_pct / self.MAX_SPEED_PCT))
 
