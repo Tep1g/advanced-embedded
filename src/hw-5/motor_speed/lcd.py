@@ -2,11 +2,9 @@ from lib import st7796 #Professor Glower's st7796 driver, renamed for clarity
 
 RGB_BLACK = (0,0,0)
 RGB_WHITE = (255, 255, 255)
-GRAPHIC_TITLE = const("Motor Speed")
-GRAPHIC_TITLE_COORDS =  (240-8*len(GRAPHIC_TITLE), 5)
-GRAPHIC_BAR_X1 = 220
-GRAPHIC_BAR_X2 = 260
-GRAPHIC_BAR_Y1 = 160
+GRAPHIC_BAR_X1 = const(220)
+GRAPHIC_BAR_X2 = const(260)
+GRAPHIC_BAR_Y1 = const(160)
 POS_CHAR = const(" ")
 NEG_CHAR = const("-")
 
