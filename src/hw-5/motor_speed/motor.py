@@ -7,19 +7,18 @@ class UnidirectionalMotor():
     MAX_SPEED_PCT = const(100)
     SEC_TO_NS_FLOAT = const(1_000_000_000)
     PWM_FREQ = const(20_000)
-    PWM_DUTY_NS = SEC_TO_NS_FLOAT / PWM_FREQ
+    PWM_FACTOR = float((SEC_TO_NS_FLOAT / PWM_FREQ) / MAX_SPEED_PCT)
     
     def __init__(self, pwm_gpio: int):
         self._pwm = PWM(Pin(pwm_gpio, Pin.OUT))
         self._pwm.duty_ns(0)
         self._pwm.freq(self.PWM_FREQ)
-        self._duty_ns = round(self.SEC_TO_NS_FLOAT / self.PWM_FREQ)
 
     def set_speed_pct(self, speed_pct: int):
         if not (self.MIN_SPEED_PCT <= speed_pct <= self.MAX_SPEED_PCT):
             raise ValueError("Invalid unidirectional speed percentage: {}, must be within {} and {} inclusive.".format(speed_pct, self.MIN_SPEED_PCT, self.MAX_SPEED_PCT))
         
-        self._pwm.duty_ns(round(self.PWM_DUTY_NS * speed_pct / self.MAX_SPEED_PCT))
+        self._pwm.duty_ns(round(speed_pct * self.PWM_FACTOR))
 
 class BidirectionalMotor():
     """Bidirectional Motor"""
