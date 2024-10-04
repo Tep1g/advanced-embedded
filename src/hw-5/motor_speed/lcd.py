@@ -1,4 +1,4 @@
-from lib import st7796 #Professor Glower's st7796 driver, renamed for clarity
+import st7796 #Professor Glower's st7796 driver, renamed for clarity
 
 RGB_BLACK = (0,0,0)
 RGB_WHITE = (255, 255, 255)
