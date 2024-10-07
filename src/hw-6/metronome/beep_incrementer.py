@@ -4,7 +4,7 @@ from beep import Beeper
 class BetweenBeepsIncrementer:
     def __init__(self, beeper: Beeper, incr_pct: int, incr_gpio: int, decr_gpio: int, pull_config: int):
         self._beeper = beeper
-        self._incr_step = round(beeper.init_between_beeps_ms * incr_pct / 100.0)
+        self._incr_step = round(beeper.between_beeps_ms * incr_pct / 100.0)
         self._increment = Pin(incr_gpio, Pin.IN, pull_config)
         self._decrement = Pin(decr_gpio, Pin.IN, pull_config)
         
@@ -26,7 +26,7 @@ class BetweenBeepsIncrementer:
 
 if __name__ == "__main__":
     beeper = Beeper(
-        init_between_beeps_ms=1000, 
+        between_beeps_ms=1000, 
         beep_length_ms=10, 
         beep_freq=500, 
         beep_gpio=28
