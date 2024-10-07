@@ -23,3 +23,20 @@ class BetweenBeepsIncrementer:
 
     def _decrement_handler(self, pin):
         self._beeper.between_beeps_ms -= self._incr_step
+
+if __name__ == "__main__":
+    beeper = Beeper(
+        init_between_beeps_ms=1000, 
+        beep_length_ms=10, 
+        beep_freq=500, 
+        beep_gpio=28
+    )
+    incrementer = BetweenBeepsIncrementer(
+        beeper=beeper, 
+        incr_pct=1, 
+        incr_gpio=15, 
+        decr_gpio=14, 
+        pull_config=Pin.PULL_UP
+    )
+    while (True):
+        print("N: {}", beeper.between_beeps_ms)
