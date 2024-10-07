@@ -18,3 +18,9 @@ class Beeper:
     def _stop_beep_handler(self, timer: Timer):
         self._beeper.duty_ns(_DUTY_OFF_NS)
         timer.init(mode=Timer.PERIODIC, period=self.wait_period_ms, callback=self._start_beep_handler)
+
+if __name__ == "__main__":
+    """Test Script"""
+    beeper = Beeper(init_wait_period_ms=1000, beep_width_ms=10, beep_freq=500, beep_gpio=28)
+    while (True):
+        continue
