@@ -9,15 +9,15 @@ class Beeper:
         self._beep_length_ms = beep_length_ms
         self._beeper = PWM(dest=Pin(beep_gpio, Pin.OUT), freq=beep_freq, duty_ns=_DUTY_OFF_NS)
         self._timer = Timer(-1)
-        self._timer.init(mode=Timer.PERIODIC, period=self.between_beeps_ms, callback=self._start_beep_handler)
+        self._timer.init(mode=Timer.ONE_SHOT, period=self.between_beeps_ms, callback=self._start_beep_handler)
 
     def _start_beep_handler(self, timer: Timer):
         self._beeper.duty_ns(_DUTY_ON_NS)
-        timer.init(mode=Timer.PERIODIC, period=self._beep_length_ms, callback=self._stop_beep_handler)
+        timer.init(mode=Timer.ONE_SHOT, period=self._beep_length_ms, callback=self._stop_beep_handler)
 
     def _stop_beep_handler(self, timer: Timer):
         self._beeper.duty_ns(_DUTY_OFF_NS)
-        timer.init(mode=Timer.PERIODIC, period=self.between_beeps_ms, callback=self._start_beep_handler)
+        timer.init(mode=Timer.ONE_SHOT, period=self.between_beeps_ms, callback=self._start_beep_handler)
 
 if __name__ == "__main__":
     """Test Script"""
