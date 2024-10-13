@@ -39,4 +39,4 @@ if __name__ == "__main__":
         pull_config=Pin.PULL_UP
     )
     while (True):
-        print("N: {}", beeper.between_beeps_ms)
+        print("N: {}".format(beeper.between_beeps_ms))
