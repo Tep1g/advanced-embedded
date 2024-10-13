@@ -1,6 +1,6 @@
 # Metronome
 ## 1) beep.py
-## Program
+### Program
 ```py
 from machine import Pin, PWM, Timer
 from time import ticks_us
@@ -43,7 +43,7 @@ if __name__ == "__main__":
 
 <br>
 
-## Test
+### Test
 
 Roughly 1000ms
 
