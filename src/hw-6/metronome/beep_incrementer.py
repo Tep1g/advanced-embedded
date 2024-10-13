@@ -22,7 +22,9 @@ class BetweenBeepsIncrementer:
         self._beeper.between_beeps_ms += self._incr_step
 
     def _decrement_handler(self, pin):
-        self._beeper.between_beeps_ms -= self._incr_step
+        quiet_period_ms = self._beeper.between_beeps_ms - self._incr_step
+        if quiet_period_ms >= 0:
+            self._beeper.between_beeps_ms = quiet_period_ms
 
 if __name__ == "__main__":
     beeper = Beeper(
