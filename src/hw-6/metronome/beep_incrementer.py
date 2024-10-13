@@ -40,5 +40,8 @@ if __name__ == "__main__":
         decr_gpio=14, 
         pull_config=Pin.PULL_UP
     )
+    n = 0
     while (True):
-        print("N: {}".format(beeper.quiet_period_ms))
+        if n != beeper.quiet_period_ms:
+            print("N: {}".format(beeper.quiet_period_ms))
+        n=beeper.quiet_period_ms
