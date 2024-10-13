@@ -18,7 +18,7 @@ class LCD:
         st7796.Text2(_BPM_LABEL, _LABEL_X, _Y_TEXT, _RGB_WHITE, _RGB_BLACK)
 
     def update_display(self):
-        quiet_period_ms = self._beeper.between_beeps_ms
+        quiet_period_ms = self._beeper.quiet_period_ms
         if quiet_period_ms > 0:
             bpm = str(round(_MINUTE_TO_MS / quiet_period_ms))
         else:
