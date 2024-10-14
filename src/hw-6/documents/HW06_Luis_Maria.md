@@ -180,3 +180,7 @@ if __name__ == "__main__":
     while (True):
         lcd.update_display()
 ```
+
+## 4) Demo
+
+Done in person
