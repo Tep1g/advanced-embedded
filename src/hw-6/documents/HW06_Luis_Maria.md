@@ -45,7 +45,7 @@ if __name__ == "__main__":
 
 ### Test
 
-Roughly 1000ms
+Roughly 1000ms quiet period between beeps
 
 ![alt text](images/image.png)
 
