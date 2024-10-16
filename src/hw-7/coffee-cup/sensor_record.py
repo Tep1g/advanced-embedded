@@ -21,17 +21,18 @@ class SensorRecord:
         (ds, address) = ds18x20_init(onewire_gpio=onewire_gpio)
         self._ds = ds
         self._ds_address = address
-        self._max_samples = num_samples
+        self._max_sample_index = num_samples-1
         self.init_display()
         self._timer = Timer(-1)
         self._timer.init(mode=Timer.PERIODIC, period=sample_period_ms, callback=self._sensor_handler)
         self._samples_deg_c = []
+        self._sample_index = 0
         self.is_recording = True
 
     def init_display(self):
         st7796.Init()
         st7796.Clear(_BLACK_RGB)
-        st7796.Line(_XMIN, _Y0, _XMIN+self._max_samples, _Y0, _WHITE_RGB)
+        st7796.Line(_XMIN, _Y0, _XMIN+self._max_sample_index, _Y0, _WHITE_RGB)
         st7796.Line(_XMIN, _YMIN, _XMIN, _YMAX, _WHITE_RGB)
 
     def _sensor_handler(self, Timer: Timer):
@@ -40,8 +41,15 @@ class SensorRecord:
         meas = self._ds.read_temp(self._ds_address)
         self._samples_deg_c.append(meas)
 
+        # Graph point
+        x = _XMIN+self._sample_index
+        y = _Y0+round(meas)
+        st7796.Pixel2(x, y, _BLACK_RGB)
+        st7796.Pixel2(x, y, _BLUE_RGB)
+        self._sample_index += 1
+
         # Stop recording if desired number of samples is reached
-        if len(self._samples_deg_c) >= self._max_samples:
+        if self._sample_index >= self._max_sample_index:
             self._timer.deinit()
             self.is_recording = False
 
