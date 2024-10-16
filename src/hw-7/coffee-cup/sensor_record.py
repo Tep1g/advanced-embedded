@@ -53,6 +53,11 @@ class SensorRecord:
             self._timer.deinit()
             self.is_recording = False
 
+    def export_data(self, filename: str):
+        with open(filename, "w") as in_file:
+            for sample in self._samples_deg_c:
+                in_file.write(sample)
+
         
 
 if __name__ == "__main__":
@@ -61,3 +66,6 @@ if __name__ == "__main__":
     # Record data
     while record.is_recording:
         continue
+
+    # Export data
+    record.export_data(filename="samples.txt")
