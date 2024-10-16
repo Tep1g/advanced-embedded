@@ -1,11 +1,13 @@
 from machine import Timer
 from sensor import ds18x20_init
 
-SENSOR_RX_GPIO = const(4)
+_ONEWIRE_GPIO = const(4)
+_SAMPLE_PERIOD_MS = const(1000)
+_SAMPLES = const(120)
 
 class SensorRecord:
-    def __init__(self, sample_period_ms: int, samples: int):
-        (ds, address) = ds18x20_init()
+    def __init__(self, onewire_gpio: int, sample_period_ms: int, samples: int):
+        (ds, address) = ds18x20_init(onewire_gpio=onewire_gpio)
         self._ds = ds
         self._ds_address = address
         self._samples = samples
@@ -24,6 +26,8 @@ class SensorRecord:
             self.is_recording = False
 
 if __name__ == "__main__":
-    sensor = SensorRecord(1000, 120)
+    sensor = SensorRecord(onewire_gpio=_ONEWIRE_GPIO, sample_period_ms=_SAMPLE_PERIOD_MS, samples=_SAMPLES)
+
+    # Record data
     while sensor.is_recording:
         continue
