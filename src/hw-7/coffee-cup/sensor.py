@@ -1,6 +1,7 @@
 import onewire
 from ds18x20 import DS18X20
 from machine import Pin
+from time import sleep_ms
 
 _ONEWIRE_GPIO = const(4)
 
@@ -18,4 +19,6 @@ if __name__ == "__main__":
     (ds18b20, address) = ds18x20_init(onewire_gpio=_ONEWIRE_GPIO)
 
     while True:
+        ds18b20.convert_temp()
+        sleep_ms(750)
         print(ds18b20.read_temp(address))

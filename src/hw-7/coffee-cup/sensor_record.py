@@ -1,3 +1,4 @@
+import time
 from machine import Timer
 from sensor import ds18x20_init
 
@@ -17,6 +18,8 @@ class SensorRecord:
         self.is_recording = True
 
     def _sensor_handler(self, Timer: Timer):
+        self._ds.convert_temp()
+        time.sleep_ms(750)
         meas = self._ds.read_temp(self._ds_address)
         self._samples_deg_c.append(meas)
 
