@@ -1,6 +1,5 @@
 from machine import Timer
 from sensor import ds18x20_init
-import ds18x20
 
 SENSOR_RX_GPIO = const(4)
 
