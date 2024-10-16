@@ -5,20 +5,24 @@ from time import sleep_ms
 
 _ONEWIRE_GPIO = const(4)
 
-def ds18x20_init(onewire_gpio: int) -> tuple[DS18X20, int]:
-    ds18b20 = DS18X20(onewire.OneWire(Pin(onewire_gpio)))
-    addresses = ds18b20.scan()
-    address = addresses[0]
-    print('Found DS devices: {}'.format(addresses))
-    print('Using address: {}'.format(address))
+class Sensor:
+    def __init__(self, onewire_gpio: int):
+        self._ds18b20 = DS18X20(onewire.OneWire(Pin(onewire_gpio)))
+        addresses = self._ds18b20.scan()
+        self._address = addresses[0]
 
-    return (ds18b20, address)
+        print('Found DS devices: {}'.format(addresses))
+        print('Using address: {}'.format(self._address))
+
+    def read_temp(self):
+        self._ds18b20.convert_temp()
+        sleep_ms(750)
+        
+        return self._ds18b20.read_temp(self._address)
 
 if __name__ == "__main__":
     """Problem 1"""
-    (ds18b20, address) = ds18x20_init(onewire_gpio=_ONEWIRE_GPIO)
+    sensor = Sensor(onewire_gpio=_ONEWIRE_GPIO)
 
     while True:
-        ds18b20.convert_temp()
-        sleep_ms(750)
-        print(ds18b20.read_temp(address))
+        print(sensor.read_temp())

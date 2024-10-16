@@ -1,7 +1,7 @@
 import time
 import st7796
 from machine import Timer
-from sensor import ds18x20_init
+from sensor import Sensor
 
 _ONEWIRE_GPIO = const(4)
 _SAMPLE_PERIOD_MS = const(1000)
@@ -18,9 +18,7 @@ _XMIN = const(50)
 
 class SensorRecord:
     def __init__(self, onewire_gpio: int, sample_period_ms: int, num_samples: int):
-        (ds, address) = ds18x20_init(onewire_gpio=onewire_gpio)
-        self._ds = ds
-        self._ds_address = address
+        self._sensor = Sensor(onewire_gpio=onewire_gpio)
         self._max_sample_index = num_samples-1
         self.init_display()
         self._timer = Timer(-1)
@@ -36,9 +34,7 @@ class SensorRecord:
         st7796.Line(_XMIN, _YMIN, _XMIN, _YMAX, _WHITE_RGB)
 
     def _sensor_handler(self, Timer: Timer):
-        self._ds.convert_temp()
-        time.sleep_ms(750)
-        meas = self._ds.read_temp(self._ds_address)
+        meas = self._sensor.read_temp()
         self._samples_deg_c.append(meas)
 
         # Graph point
