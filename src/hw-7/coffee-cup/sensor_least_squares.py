@@ -4,8 +4,12 @@ import time
 from machine import Timer
 from sensor import Sensor
 
+_ONEWIRE_GPIO = const(4)
+_SAMPLE_PERIOD_MS = const(1000)
+_T_AMB_C = 25
+
 class SensorLeastSquares:
-    def __init__(self, onewire_gpio: int, sample_period_ms: int, num_samples: int, t_amb_c: float):
+    def __init__(self, onewire_gpio: int, sample_period_ms: int, t_amb_c: float):
         self._sensor = Sensor(onewire_gpio=onewire_gpio)
         self._sample_period_s = sample_period_ms/1000
         self._t_amb_c = t_amb_c
@@ -30,3 +34,9 @@ class SensorLeastSquares:
         a = A[0][0]
         b = A[1][0]
         print(self._x, a, b)
+
+if __name__ == "__main__":
+    least_squares = SensorLeastSquares(onewire_gpio=_ONEWIRE_GPIO, sample_period_ms=_SAMPLE_PERIOD_MS, t_amb_c=_T_AMB_C)
+
+    while True:
+        continue
