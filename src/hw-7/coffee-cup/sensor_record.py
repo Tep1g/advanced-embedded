@@ -39,7 +39,7 @@ class SensorRecord:
 
         # Graph point
         x = _XMIN+self._sample_index
-        y = _Y0+round(meas)
+        y = _Y0-round(meas)
         st7796.Pixel2(x, y, _BLACK_RGB)
         st7796.Pixel2(x, y, _BLUE_RGB)
         self._sample_index += 1
