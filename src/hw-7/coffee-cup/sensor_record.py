@@ -52,7 +52,7 @@ class SensorRecord:
     def export_data(self, filename: str):
         with open(filename, "w") as in_file:
             for sample in self._samples_deg_c:
-                in_file.write(sample)
+                in_file.write(str(sample) + '\n')
 
         
 
