@@ -1,4 +1,3 @@
-import time
 import st7796
 from machine import Timer
 from sensor import Sensor

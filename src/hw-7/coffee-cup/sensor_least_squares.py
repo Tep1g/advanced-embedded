@@ -1,6 +1,5 @@
 import matrix
 import math
-import time
 from machine import Timer
 from sensor import Sensor
 
