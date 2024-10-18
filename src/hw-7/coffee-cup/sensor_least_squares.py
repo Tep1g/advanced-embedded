@@ -5,7 +5,7 @@ from sensor import Sensor
 
 _ONEWIRE_GPIO = const(4)
 _SAMPLE_PERIOD_MS = const(1000)
-_T_AMB_C = 26.625
+_T_AMB_C = const(26.625)
 
 class SensorLeastSquares:
     def __init__(self, onewire_gpio: int, sample_period_ms: int, t_amb_c: float):
