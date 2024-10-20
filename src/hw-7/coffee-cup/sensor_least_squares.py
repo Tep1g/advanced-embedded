@@ -12,8 +12,8 @@ class SensorLeastSquares:
         self._sensor = Sensor(onewire_gpio=onewire_gpio)
         self._sample_period_s = sample_period_ms/1000
         self._t_amb_c = t_amb_c
-        self._last_b_matrix =  [[0.01,0],[0,0.01]]
-        self._last_y_matrix = [[0],[0]]
+        self._b_matrix =  [[0.01,0],[0,0.01]]
+        self._y_matrix = [[0],[0]]
         self._x = 0
         self._timer = Timer(-1)
         self._timer.init(mode=Timer.PERIODIC, period=sample_period_ms, callback=self._sensor_handler)
@@ -24,14 +24,14 @@ class SensorLeastSquares:
         self._x += self._sample_period_s
         y = math.log(temp_c - self._t_amb_c)
 
-        b_matrix = matrix.add(self._last_b_matrix, [[self._x*self._x, self._x], [self._x, 1]])
-        y_matrix = matrix.add(self._last_y_matrix, [[self._x*y], [y]])
+        b_matrix = matrix.add(self._b_matrix, [[self._x*self._x, self._x], [self._x, 1]])
+        y_matrix = matrix.add(self._y_matrix, [[self._x*y], [y]])
         b_matrix_inverse = matrix.inv(b_matrix)
         a_matrix = matrix.mult(b_matrix_inverse, y_matrix)
         a = a_matrix[0][0]
         b = math.exp(a_matrix[1][0])
-        self._last_b_matrix = b_matrix
-        self._last_y_matrix = y_matrix
+        self._b_matrix = b_matrix
+        self._y_matrix = y_matrix
         print("Current Temp: {}".format(temp_c))
         print("Time: {}\na: {}\nb: {}".format(self._x, a, b))
 
