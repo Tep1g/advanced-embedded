@@ -40,6 +40,12 @@ Cold water
 
 <br>
 
+Freezing water
+
+![alt text](images/freezing.png)
+
+<br>
+
 Hot water
 
 ![alt text](<images/hot water.png>)
