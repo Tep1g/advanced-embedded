@@ -30,10 +30,11 @@ class SensorLeastSquares:
         a_matrix = matrix.mult(b_matrix_inverse, y_matrix)
         a = abs(a_matrix[0][0])
         b = math.exp(a_matrix[1][0])
+        tc = 1/a
         self._b_matrix = b_matrix
         self._y_matrix = y_matrix
         print("Current Temp: {}".format(temp_c))
-        print("Time: {}\na: {}\nb: {}".format(self._x, a, b))
+        print("Time: {}\na: {}\nb: {}\nTC: {}".format(self._x, a, b, tc))
 
 if __name__ == "__main__":
     least_squares = SensorLeastSquares(onewire_gpio=_ONEWIRE_GPIO, sample_period_ms=_SAMPLE_PERIOD_MS, t_amb_c=_T_AMB_C)
