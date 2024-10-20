@@ -28,7 +28,7 @@ class SensorLeastSquares:
         y_matrix = matrix.add(self._y_matrix, [[self._x*y], [y]])
         b_matrix_inverse = matrix.inv(b_matrix)
         a_matrix = matrix.mult(b_matrix_inverse, y_matrix)
-        a = a_matrix[0][0]
+        a = abs(a_matrix[0][0])
         b = math.exp(a_matrix[1][0])
         self._b_matrix = b_matrix
         self._y_matrix = y_matrix
