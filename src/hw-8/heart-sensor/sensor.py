@@ -6,7 +6,7 @@ _BPM_FACTOR = const(60_000_000)
 _DISPLAY_INTERVAL_US = const(100_000)
 
 class HeartSensor:
-    def __init__(self, adc_gpio: int, display, beeper, print_pulse_period: bool=False):
+    def __init__(self, adc_gpio: int, display=None, beeper=None, print_pulse_period: bool=False):
         self.adc = ADC(Pin(adc_gpio, Pin.IN))
         self._pulse_period_us = 0
         self._display_ticks_us = 0
