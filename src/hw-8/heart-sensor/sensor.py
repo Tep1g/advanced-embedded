@@ -17,7 +17,7 @@ class HeartSensor:
 
         self._beeper = beeper
         self._timer = Timer(-1)
-        self._timer.init(mode=Timer.ONE_SHOT, freq=_S_TO_US, callback=self._adc_handler)
+        self._timer.init(mode=Timer.PERIODIC, freq=_S_TO_US, callback=self._adc_handler)
     
     def _adc_handler(self, timer: Timer):
         self._pulse_period_us += 1
