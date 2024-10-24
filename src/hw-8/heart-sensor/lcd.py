@@ -5,13 +5,13 @@ _RGB_BLACK = st7796.RGB(0, 0, 0)
 _RGB_WHITE = st7796.RGB(255,255,255)
 
 _BPM_LABEL = "BPM: "
-_BPM_LABEL_X = const()
-_BPM_Y = const()
+_BPM_LABEL_X = const(0)
+_BPM_Y = const(0)
 _BPM_X = _BPM_LABEL_X + 80
 
 _T_LABEL = "T: "
-_T_LABEL_X = const()
-_T_Y = const()
+_T_LABEL_X = const(0)
+_T_Y = const(0)
 _T_X = _T_LABEL_X + 80
 
 _YMIN = const(10)
