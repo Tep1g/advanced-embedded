@@ -173,6 +173,7 @@ class HeartSensor:
 ```
 
 ## 1)
+### main.py
 ```py
 from sensor import HeartSensor
 from lcd import LCD
@@ -188,7 +189,14 @@ if __name__ == "__main__":
 
 <br>
 
+## Result
+
+![alt text](images/p1.jpg)
+
+<br>
+
 ## 2)
+### main.py
 ```py
 from beep import Beeper
 from sensor import HeartSensor
@@ -204,19 +212,27 @@ if __name__ == "__main__":
 <br>
 
 ## 3)
+### main.py
 ```py
 from sensor import HeartSensor
 
 if __name__ == "__main__":
 
-    heart_sensor = HeartSensor(adc_gpio=28, duration_ms=1_800, print_pulse_period=True)
+    heart_sensor = HeartSensor(adc_gpio=28, duration_ms=7_200, print_pulse_period=True)
     while heart_sensor.enabled:
         continue
 ```
 
 <br>
 
+### Result
+
+![alt text](images/p3.png)
+
+<br>
+
 ## 4)
+### main.py
 ```py
 from sensor import HeartSensor
 from lcd import LCD
@@ -230,6 +246,12 @@ if __name__ == "__main__":
     while heart_sensor.enabled:
         continue
 ```
+
+<br>
+
+### Result
+
+![alt text](images/p4.jpg)
 
 <br>
 
