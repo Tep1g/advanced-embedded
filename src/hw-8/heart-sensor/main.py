@@ -1,10 +1,11 @@
 from sensor import HeartSensor
 from lcd import LCD
 
-def test_graph():
+if __name__ == "__main__":
     display = LCD()
     display.init_graph()
-
-    heart_sensor = HeartSensor(adc_gpio=28)
-    while True:
+    display.init_bpm()
+    display.init_pulse_period()
+    heart_sensor = HeartSensor(adc_gpio=28, duration_ms=1_800, display=display)
+    while heart_sensor.enabled:
         continue
