@@ -1,4 +1,3 @@
-import math
 import st7796 #Professor Glower's st7796 driver, renamed for clarity
 
 _RGB_BLUE = st7796.RGB(30, 144, 255)
