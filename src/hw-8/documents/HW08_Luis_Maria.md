@@ -256,5 +256,33 @@ if __name__ == "__main__":
 <br>
 
 ## 5) Demo
+### main.py
+```
+from beep import Beeper
+from sensor import HeartSensor
+from lcd import LCD
+
+if __name__ == "__main__":
+    display = LCD()
+    display.init_graph()
+    display.init_bpm()
+    display.init_pulse_period()
+
+    beeper = Beeper(beeper_gpio=28, beep_period_ms=100, led_gpio=16)
+
+    heart_sensor = HeartSensor(adc_gpio=28, duration_ms=1_800, display=display, beeper = beeper)
+    
+    while heart_sensor.enabled:
+        continue
+```
+
+<br>
+
+[https://www.youtube.com/watch?v=](https://www.youtube.com/watch?v=)
+
+Click image to access video
+
+[![dc_servo_motor](https://img.youtube.com/vi//0.jpg)](https://www.youtube.com/watch?v=)
+
 
 <br>
