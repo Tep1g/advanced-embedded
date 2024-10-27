@@ -278,11 +278,11 @@ if __name__ == "__main__":
 
 <br>
 
-[https://www.youtube.com/watch?v=](https://www.youtube.com/watch?v=)
+[https://www.youtube.com/watch?v=Utkp7kj1dlg](https://www.youtube.com/watch?v=Utkp7kj1dlg)
 
 Click image to access video
 
-[![dc_servo_motor](https://img.youtube.com/vi//0.jpg)](https://www.youtube.com/watch?v=)
+[![dc_servo_motor](https://img.youtube.com/vi/Utkp7kj1dlg/0.jpg)](https://www.youtube.com/watch?v=Utkp7kj1dlg)
 
 
 <br>
