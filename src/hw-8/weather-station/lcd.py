@@ -5,7 +5,7 @@ _RGB_WHITE = st7796.RGB(255,255,255)
 
 _Y_RES = const(320)
 _X = const(0)
-_MEAS_X = _X + 80
+_MEAS_X = _X + 110
 
 _TEMP_LABEL = "Temp: "
 _TEMP_LABEL_Y = _Y_RES - 320
