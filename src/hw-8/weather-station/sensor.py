@@ -3,7 +3,7 @@ from machine import I2C, Pin, Timer
 from bme280 import BME280
 
 class EnvironmentSensor:
-    def __init__(self, device_id: int, scl_gpio: int, sda_gpio: int, scl_freq_hz: int, sample_rate_hz: int, duration: int, display_data_to_lcd: bool=False, print_data: bool=False, graph_data: bool=False, button=None):
+    def __init__(self, device_id: int, scl_gpio: int, scl_freq_hz: int, sda_gpio: int, sample_rate_hz: int, duration: int, button_pull, display_data_to_lcd: bool=False, print_data: bool=False, graph_data: bool=False, button_gpio=None):
         self._i2c = I2C(id=device_id, scl=Pin(scl_gpio), sda=Pin(sda_gpio), freq=scl_freq_hz)
         self._bme = BME280(i2c=self._i2c)
         self._data = [[],[],[]]
@@ -17,8 +17,8 @@ class EnvironmentSensor:
         lcd.init(with_labels=display_data_to_lcd)
         self._timer = Timer(-1)
         self._timer.init(mode=Timer.PERIODIC, period=sample_rate_hz, callback=self._sample_handler)
-        if (button != None) and (self._graph_data):
-            self._button = button
+        if (button_gpio != None) and (self._graph_data):
+            self._button = Pin(button_gpio, Pin.IN, button_pull)
             self._button.irq(trigger=Pin.IRQ_FALLING, handler=self._switch_set_handler)
 
     def _sample_handler(self, timer: Timer):
