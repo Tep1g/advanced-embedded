@@ -11,5 +11,5 @@ if __name__ == "__main__":
         print_data=True,
         button_gpio=15
     )
-    while True:
+    while not sensor.done_collecting:
         continue
