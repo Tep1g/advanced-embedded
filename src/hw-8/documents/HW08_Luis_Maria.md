@@ -435,4 +435,4 @@ if __name__ == "__main__":
 
 <br>
 
-![alt text](print_to_terminal.png)
+![alt text](images/print_to_terminal.png)
