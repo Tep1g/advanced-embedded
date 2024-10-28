@@ -35,13 +35,14 @@ class EnvironmentSensor:
         self._data[1].append(humidity)
         self._data[2].append(pressure)
 
-        print("T: {}, Temp: {}, Humid: {}, Press: {}".format(
-            self._time_s, 
-            temperature, 
-            humidity, 
-            pressure
+        if self._print_data:
+            print("T: {}, Temp: {}, Humid: {}, Press: {}".format(
+                self._time_s, 
+                temperature, 
+                humidity, 
+                pressure
+                )
             )
-        )
 
         if self._time_s >= self._duration_s:
             self._timer.deinit()
