@@ -35,19 +35,17 @@ class EnvironmentSensor:
         self._data[1].append(humidity)
         self._data[2].append(pressure)
 
+        print("T: {}, Temp: {}, Humid: {}, Press: {}".format(
+            self._time_s, 
+            temperature, 
+            humidity, 
+            pressure
+            )
+        )
+
         if self._time_s >= self._duration_s:
             self._timer.deinit()
             self._done_collecting = True
-
-            if self._print_data:
-                for i in range(len(self._data)):
-                    print("T: {}, Temp: {}, Humid: {}, Press: {}".format(
-                        i, 
-                        self._data[0][i], 
-                        self._data[1][i], 
-                        self._data[2][i]
-                        )
-                    )
 
             if self._graph_data:
                 lcd.plot(self._data[self._data_set_ptr])
