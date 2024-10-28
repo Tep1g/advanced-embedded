@@ -11,6 +11,7 @@ class EnvironmentSensor:
         self._display_data_to_lcd = display_data_to_lcd
         self.done_collecting = False
         self._graph_data = graph_data
+        self._graph_labels = ["Temperature", "Humidity", "Pressure"]
         self._time_s = 0
         self._print_data = print_data
         self._duration_s = duration_s
@@ -49,10 +50,10 @@ class EnvironmentSensor:
             self.done_collecting = True
 
             if self._graph_data:
-                lcd.plot(self._data[self._data_set_ptr])
+                lcd.plot(self._data[self._data_set_ptr], self._graph_labels[self._data_set_ptr])
 
 
     def _switch_set_handler(self, pin: Pin):
         if self.done_collecting:
             self._data_set_ptr = (self._data_set_ptr + 1) % len(self._data)
-            lcd.plot(self._data[self._data_set_ptr])
+            lcd.plot(self._data[self._data_set_ptr], self._graph_labels[self._data_set_ptr])
