@@ -32,9 +32,9 @@ class EnvironmentSensor:
         if self._display_data_to_lcd:
             lcd.update_values(temperature=temperature, humidity=humidity, pressure=pressure)
 
-        self._data[0].append(temperature)
-        self._data[1].append(humidity)
-        self._data[2].append(pressure)
+        self._data[0].append(int((temperature.replace(".", "")).strip("C")))
+        self._data[1].append(int((humidity.replace(".", "")).strip("%")))
+        self._data[2].append(int((pressure.replace(".", "")).strip("hPa")))
 
         if self._print_data:
             print("T: {}, Temp: {}, Humid: {}, Press: {}".format(
