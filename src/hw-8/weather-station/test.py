@@ -9,7 +9,8 @@ if __name__ == "__main__":
         sample_rate_hz=1,
         duration_s=60,
         print_data=True,
+        graph_data=True,
         button_gpio=15
     )
-    while not sensor.done_collecting:
+    while True:
         continue

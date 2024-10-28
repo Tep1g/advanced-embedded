@@ -308,6 +308,9 @@ _HUMID_LABEL_Y = _Y_RES - 280
 _PRES_LABEL = "Pres: "
 _PRES_LABEL_Y = _Y_RES - 240
 
+_GRAPH_LABEL_X = const(0)
+_GRAPH_LABEL_Y = _Y_RES - 320
+
 def init(with_labels: bool=False):
     st7796.Init()
     st7796.Clear(_RGB_BLACK)
@@ -317,8 +320,10 @@ def init(with_labels: bool=False):
         st7796.Text2(_HUMID_LABEL, _X, _HUMID_LABEL_Y, _RGB_WHITE, _RGB_BLACK)
         st7796.Text2(_PRES_LABEL, _X, _PRES_LABEL_Y, _RGB_WHITE, _RGB_BLACK)        
 
-def plot(data: list):
+def plot(data: list, graph_label: str):
+    st7796.Clear(_RGB_BLACK)
     x = range(len(data))
+    st7796.Text2(graph_label, _GRAPH_LABEL_X, _GRAPH_LABEL_Y, _RGB_WHITE, _RGB_BLACK)
     st7796.Plot(X=x, Y=data, Xmin=min(x), Ymin=min(data), Xmax=max(x), Ymax=max(data), color=_RGB_WHITE)
 
 def update_values(temperature: str, humidity: str, pressure: str):
@@ -344,6 +349,7 @@ class EnvironmentSensor:
         self._display_data_to_lcd = display_data_to_lcd
         self.done_collecting = False
         self._graph_data = graph_data
+        self._graph_labels = ["Temperature", "Humidity", "Pressure"]
         self._time_s = 0
         self._print_data = print_data
         self._duration_s = duration_s
@@ -364,30 +370,31 @@ class EnvironmentSensor:
         if self._display_data_to_lcd:
             lcd.update_values(temperature=temperature, humidity=humidity, pressure=pressure)
 
-        self._data[0].append(temperature)
-        self._data[1].append(humidity)
-        self._data[2].append(pressure)
+        self._data[0].append(int((temperature.replace(".", "")).strip("C")))
+        self._data[1].append(int((humidity.replace(".", "")).strip("%")))
+        self._data[2].append(int((pressure.replace(".", "")).strip("hPa")))
 
-        print("T: {}, Temp: {}, Humid: {}, Press: {}".format(
-            self._time_s, 
-            temperature, 
-            humidity, 
-            pressure
+        if self._print_data:
+            print("T: {}, Temp: {}, Humid: {}, Press: {}".format(
+                self._time_s, 
+                temperature, 
+                humidity, 
+                pressure
+                )
             )
-        )
 
         if self._time_s >= self._duration_s:
             self._timer.deinit()
             self.done_collecting = True
 
             if self._graph_data:
-                lcd.plot(self._data[self._data_set_ptr])
+                lcd.plot(self._data[self._data_set_ptr], self._graph_labels[self._data_set_ptr])
 
 
     def _switch_set_handler(self, pin: Pin):
         if self.done_collecting:
             self._data_set_ptr = (self._data_set_ptr + 1) % len(self._data)
-            lcd.plot(self._data[self._data_set_ptr])
+            lcd.plot(self._data[self._data_set_ptr], self._graph_labels[self._data_set_ptr])
 ```
 ## 6) test.py
 ```py
@@ -435,4 +442,49 @@ if __name__ == "__main__":
 
 <br>
 
+Portion of the data
+
 ![alt text](images/print_to_terminal.png)
+
+<br>
+
+## 8) test.py
+```py
+from sensor import EnvironmentSensor
+
+if __name__ == "__main__":
+    sensor = EnvironmentSensor(
+        device_id=0,
+        scl_gpio=21,
+        scl_freq_hz=10_000,
+        sda_gpio=20,
+        sample_rate_hz=1,
+        duration_s=60,
+        graph_data=True,
+        button_gpio=15
+    )
+    while True:
+        continue
+```
+
+<br>
+
+Results
+
+Temperature
+
+![alt text](images/temp.jpg)
+
+<br>
+
+Humidity (Zero)
+
+![alt text](images/humid.jpg)
+
+<br>
+
+Pressure
+
+![alt text](images/pressure.jpg)
+
+<br>
