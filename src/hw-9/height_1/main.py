@@ -14,12 +14,13 @@ if __name__ == "__main__":
     gy521 = MPU6050(i2c)
     button = Pin(15, Pin.IN, Pin.PULL_UP)
     top_distances = [0.0, 0.0, 0.0]
+    clear_string = " "
     while True:
         for i in range(len(top_distances)):
-            distance_str = str(top_distances[i])
-            clear_string = " " * len(distance_str)
             offset = 0+(50*i)
             st7796.Text2(clear_string, 0, offset, RGB_WHITE, RGB_BLACK)
+            distance_str = str(top_distances[i])
+            clear_string = " " * len(distance_str)
             st7796.Text2(distance_str, 0, offset, RGB_WHITE, RGB_BLACK)
 
         while button.value() == 1:
