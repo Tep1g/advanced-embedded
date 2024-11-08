@@ -18,8 +18,9 @@ if __name__ == "__main__":
         for i in range(len(top_times)):
             time_str = str(top_times[i])
             clear_string = " " * len(time_str)
-            st7796.Text2(clear_string, 0, 0-(50*i), RGB_WHITE, RGB_BLACK)
-            st7796.Text2(time_str, 0, 0-(50*i), RGB_WHITE, RGB_BLACK)
+            offset = 0+(50*i)
+            st7796.Text2(clear_string, 0, offset, RGB_WHITE, RGB_BLACK)
+            st7796.Text2(time_str, 0, offset, RGB_WHITE, RGB_BLACK)
 
         while button.value() == 1:
             while not (0 < gy521.accel.z < G_THRESHOLD):
