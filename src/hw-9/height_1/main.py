@@ -34,3 +34,4 @@ if __name__ == "__main__":
         for i in range(len(top_times)):
             if top_times[i] < air_time:
                 top_times[i] = air_time
+                break
