@@ -23,13 +23,15 @@ if __name__ == "__main__":
             st7796.Text2(time_str, 0, offset, RGB_WHITE, RGB_BLACK)
 
         while button.value() == 1:
-            while not (0 < gy521.accel.z < G_THRESHOLD):
-                continue
-            start_time = ticks_ms()
+            continue
 
-            while 0 < gy521.accel.z < G_THRESHOLD:
-                continue
-            air_time = ticks_ms() - start_time
+        while not (0 < gy521.accel.z < 0.1):
+            continue
+        start_time = ticks_ms()
+
+        while gy521.accel.z < 0.3:
+            continue
+        air_time = ticks_ms() - start_time
 
         for i in range(len(top_times)):
             if top_times[i] < air_time:
