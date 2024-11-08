@@ -10,7 +10,7 @@ RGB_WHITE = st7796.RGB(255,255,255)
 if __name__ == "__main__":
     st7796.Init()
     st7796.Clear(RGB_BLACK)
-    i2c = I2C(device_id=0, scl=Pin(1), sda=Pin(0))
+    i2c = I2C(id=0, scl=Pin(1), sda=Pin(0))
     gy521 = MPU6050(i2c)
     button = Pin(15, Pin.IN, Pin.PULL_UP)
     top_times = [0, 0, 0]
