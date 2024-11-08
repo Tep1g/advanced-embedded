@@ -34,7 +34,6 @@ if __name__ == "__main__":
             continue
         air_time_s = (ticks_ms() - start_time)/1000.0
         distance = round(DISTANCE_CONSTANT * ((air_time_s)**2), 2)
-        print(distance)
         for i in range(len(top_distances)):
             if top_distances[i] < distance:
                 top_distances[i] = distance
