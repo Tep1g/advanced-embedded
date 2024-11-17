@@ -25,10 +25,10 @@ class SpeedTester:
 
     def _stop_handler(self, pin: Pin):
         self._read_timer.deinit()
-        for i in range(len(self._top_speeds)):
-            if self._recording_top_speed > self._top_speeds[i]:
-                self._top_speeds[i] = self._recording_top_speed
-                break
+        lowest_top_speed = min(self._top_speeds)
+        index = self._top_speeds.index(lowest_top_speed)
+        if self._recording_top_speed > self._top_speeds[index]:
+            self._top_speeds[index] = self._recording_top_speed
 
         # Reset top speed for the next recording
         self._recording_top_speed = 0.0
