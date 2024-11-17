@@ -7,11 +7,10 @@ class GPS6M:
         self._uart = uart
 
     def read_speed_m_per_s(self):
-        msg = self._read_line()
-        speed_knots_str = msg[46:51]
-
         # simpler error handling in case of invalid cast
         try:
+            msg = self._read_line()
+            speed_knots_str = msg[46:51]
             speed_knots = float(speed_knots_str)
         except:
             return 0.0
@@ -26,7 +25,7 @@ class GPS6M:
             if(x != None):
                 x = ord(x)
             else:
-                raise TimeoutError("No gps msg received")
+                raise Exception("No gps msg received")
 
             if(chr(x) == '$'):
                 msg = ''
