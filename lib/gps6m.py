@@ -10,12 +10,14 @@ class GPS6M:
         # simpler error handling in case of invalid cast
         try:
             msg = self._read_line()
-            speed_knots_str = msg[46:51]
-            speed_knots = float(speed_knots_str)
+            msg_values = msg.split(',')
+            if msg_values[0] == "$GPRMC":
+                return (float(msg_values[7]) * _KNOTS_TO_M_PER_S)
+            else:
+                raise Exception
+
         except:
             return 0.0
-        
-        return speed_knots * _KNOTS_TO_M_PER_S
 
     def _read_line(self):
         flag = 0
