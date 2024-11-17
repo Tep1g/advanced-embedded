@@ -6,8 +6,8 @@ class GPS6M:
     def __init__(self, uart: UART):
         self._uart = uart
 
-    def read_speed_m_per_s(self):
-        # simpler error handling in case of invalid cast
+    def try_read_speed_m_per_s(self):
+        # simpler error handling in case of invalid msg or cast
         try:
             msg = self._read_line()
             msg_values = msg.split(',')

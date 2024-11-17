@@ -44,6 +44,6 @@ class SpeedTester:
             offset += 50
 
     def _read_handler(self, timer: Timer):
-        speed = self._gps.read_speed_m_per_s()
+        speed = self._gps.try_read_speed_m_per_s()
         if speed > self._recording_top_speed:
             self._recording_top_speed = speed
