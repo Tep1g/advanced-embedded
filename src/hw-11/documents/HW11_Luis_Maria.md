@@ -1,21 +1,20 @@
 # 1) NeoPixel
 ## Program
-### starter_tree.py
+### p1.py
 ```py
 from machine import Pin, Timer
 from neopixel import NeoPixel
 
 class StarterTree:
-    def __init__(self, np_pin: Pin, num_neopixels: int=8, bpp: int=3, timing: int=1, start_button=None, clear_button=None):
+    def __init__(self, start_button: Pin, clear_button: Pin, np_pin: Pin, num_neopixels: int=8, bpp: int=3, timing: int=1):
         self._np = NeoPixel(np_pin, num_neopixels, bpp=3, timing=1)
         self._current_np = 0
         self._num_neopixels = num_neopixels
         self._timer = Timer()
-        if type(start_button) == type(clear_button) == Pin:
-            self._start_button = start_button
-            self._start_button.irq(handler=self._start_handler, trigger=Pin.IRQ_FALLING) #type: ignore
-            self._clear_button = clear_button
-            self._clear_button.irq(handler=self._clear_handler, trigger=Pin.IRQ_FALLING) #type: ignore
+        self._start_button = start_button
+        self._start_button.irq(handler=self._start_handler, trigger=Pin.IRQ_FALLING) #type: ignore
+        self._clear_button = clear_button
+        self._clear_button.irq(handler=self._clear_handler, trigger=Pin.IRQ_FALLING) #type: ignore
 
     def _start_handler(self, pin: Pin):
         self._timer.init(mode=Timer.PERIODIC, period=1000, callback=self._tree_handler)
