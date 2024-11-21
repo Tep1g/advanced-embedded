@@ -25,7 +25,6 @@ class StarterTree:
             </body>
             </html>
         """
-        self._string_index = self.web_page.index("0")
         self._timer = Timer()
         self._start_button = start_button
         self._start_button.irq(handler=self._start_handler, trigger=Pin.IRQ_FALLING) #type: ignore

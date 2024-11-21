@@ -27,7 +27,6 @@ class StarterTree:
             </body>
             </html>
         """
-        self._string_index = self.web_page.index("0")
         self._timer = Timer()
 
     def start(self):
