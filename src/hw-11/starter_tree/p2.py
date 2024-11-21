@@ -18,6 +18,10 @@ class StarterTree:
             <h1>Neopixel</h1>
             <p>0 lights on</p>
 
+            <form action="/action_page.php" method="get">
+                <button name="action" value="refresh" type="submit">Refresh</button>
+            </form>
+
             </body>
             </html>
         """
@@ -44,6 +48,10 @@ class StarterTree:
 
             <h1>Neopixel</h1>
             <p>0 lights on</p>
+
+            <form action="/action_page.php" method="get">
+                <button name="action" value="refresh" type="submit">Refresh</button>
+            </form>
 
             </body>
             </html>
