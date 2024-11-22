@@ -5,16 +5,18 @@ from neopixel import NeoPixel
 RGB_STRING = "RGB"
 
 class RGBController:
-    def __init__(self, button: Pin, neopixel: NeoPixel, lcd: LCD):
+    def __init__(self, button_rgb: Pin, button_clear: Pin, neopixel: NeoPixel, lcd: LCD):
         self._neopixel = neopixel
         self._lcd = lcd
         self._rgb_pointer = 0
         self._np_selected = False
         self._current_rgb = [0, 0, 0]
-        self._button = button
-        self._button.irq(handler=self._button_handler, trigger=Pin.IRQ_FALLING)
+        self._button_rgb = button_rgb
+        self._button_clear = button_clear
+        self._button_rgb.irq(handler=self._rgb_handler, trigger=Pin.IRQ_FALLING)
+        self._button_clear.irq(handler=self._clear_handler, trigger=Pin.IRQ_FALLING)
 
-    def _button_handler(self, pin: Pin):
+    def _rgb_handler(self, pin: Pin):
         if not self._np_selected:
             self._lcd.switch_box_rgb(self._rgb_pointer)
             self._np_selected = True
@@ -35,3 +37,13 @@ class RGBController:
                 self._current_rgb = [0, 0, 0]
             else:
                 self._lcd.switch_box_rgb(self._rgb_pointer)
+
+    def _clear_handler(self, pin: Pin):
+        self._np_selected = False
+        self._lcd.vertically_constrained = False
+        self._lcd.clear_box_rgb()
+        self._rgb_pointer = 0
+        self._current_rgb = [0, 0, 0]
+        self._neopixel.fill((0,0,0))
+        self._neopixel.write()
+        print("All NeoPixels Cleared")
