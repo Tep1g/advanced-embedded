@@ -13,7 +13,7 @@ class LCD:
     def __init__(self, stick_x_gpio: int, stick_y_gpio: int):
         self._stick_x = ADC(Pin(stick_x_gpio, Pin.IN))
         self._stick_y = ADC(Pin(stick_y_gpio, Pin.IN))
-        self._box_pos = [0,0]
+        self.box_pos = [0,0]
         self._box_last_pos = [0,1]
         self._box_moved = [False, False]
 
@@ -41,21 +41,21 @@ class LCD:
             ver_move = -1
 
         if not self._box_moved[0]:
-            self._box_pos[0] = min(max(self._box_pos[0] + hor_move, 0), 11)
+            self.box_pos[0] = min(max(self.box_pos[0] + hor_move, 0), 11)
 
         if not self._box_moved[1]:
-            self._box_pos[1] = min(max(self._box_pos[1] + ver_move, 0), 7)
+            self.box_pos[1] = min(max(self.box_pos[1] + ver_move, 0), 7)
 
         self._box_moved[0] = bool(hor_move)
         self._box_moved[1] = bool(ver_move)
 
     def _update_lcd(self):
-        if ((self._box_pos[0] != self._box_last_pos[0]) or (self._box_pos[1] != self._box_last_pos[1])):
+        if ((self.box_pos[0] != self._box_last_pos[0]) or (self.box_pos[1] != self._box_last_pos[1])):
             st7796.Solid_Box(CHUNKS[0][self._box_last_pos[0]], CHUNKS[1][self._box_last_pos[1]], CHUNKS[0][self._box_last_pos[0]]+39, CHUNKS[1][self._box_last_pos[1]]+39, st7796.RGB(0, 0, 0))
-            print(self._box_pos[0], self._box_pos[1])
-            st7796.Solid_Box(CHUNKS[0][self._box_pos[0]], CHUNKS[1][self._box_pos[1]], CHUNKS[0][self._box_pos[0]]+39, CHUNKS[1][self._box_pos[1]]+39, st7796.RGB(255, 255, 255))
-        self._box_last_pos[0] = self._box_pos[0]
-        self._box_last_pos[1] = self._box_pos[1]
+            print(self.box_pos[0], self.box_pos[1])
+            st7796.Solid_Box(CHUNKS[0][self.box_pos[0]], CHUNKS[1][self.box_pos[1]], CHUNKS[0][self.box_pos[0]]+39, CHUNKS[1][self.box_pos[1]]+39, st7796.RGB(255, 255, 255))
+        self._box_last_pos[0] = self.box_pos[0]
+        self._box_last_pos[1] = self.box_pos[1]
 
 # Test script
 if __name__ == "__main__":
