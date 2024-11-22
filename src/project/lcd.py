@@ -68,7 +68,6 @@ class LCD:
     def _update_lcd(self):
         if ((self.box_pos[0] != self._box_last_pos[0]) or (self.box_pos[1] != self._box_last_pos[1]) or (self._last_box_rgb != self._box_rgb)):
             st7796.Solid_Box(CHUNKS[0][self._box_last_pos[0]], CHUNKS[1][self._box_last_pos[1]], CHUNKS[0][self._box_last_pos[0]]+39, CHUNKS[1][self._box_last_pos[1]]+39, BACKGROUND_RGB)
-            print(self.box_pos[0], self.box_pos[1])
             st7796.Solid_Box(CHUNKS[0][self.box_pos[0]], CHUNKS[1][self.box_pos[1]], CHUNKS[0][self.box_pos[0]]+39, CHUNKS[1][self.box_pos[1]]+39, self._box_rgb)
             
             if self._last_box_rgb != self._box_rgb:
