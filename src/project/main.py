@@ -15,4 +15,3 @@ if __name__ == "__main__":
             lcd.tick()
         except KeyboardInterrupt:
             break  
-    print("finished")
