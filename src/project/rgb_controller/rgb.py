@@ -23,7 +23,7 @@ class RGBController:
             self._lcd.vertically_constrained = True
             print("Selected NeoPixel {}".format(self._lcd.box_pos[1]))
         else:
-            self._current_rgb[self._rgb_pointer] = 31 * self._lcd.box_pos[0]
+            self._current_rgb[self._rgb_pointer] = 23 * self._lcd.box_pos[0]
             self._neopixel[self._lcd.box_pos[1]] = tuple(self._current_rgb) #type: ignore
             self._neopixel.write()
             print("Set {} value to {}".format(RGB_STRING[self._rgb_pointer], self._current_rgb[self._rgb_pointer]))

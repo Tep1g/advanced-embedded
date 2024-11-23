@@ -202,6 +202,11 @@ if __name__ == "__main__":
 
 <br>
 
+## 4) Validation
+
+
+<br>
+
 ## 5) Demo
 
 [https://www.youtube.com/watch?v=qABb5nss_Kk](https://www.youtube.com/watch?v=qABb5nss_Kk)
