@@ -29,7 +29,8 @@ The stick's ADCs will move the on-screen box's position in the vertical and hori
 
 <div style="page-break-after: always;"></div>
 
-## 3) Flowchart
+## 3) Flowchart & Program
+### Flowchart
 ![alt text](images/flowchart.png)
 
 <div style="page-break-after: always;"></div>
@@ -153,7 +154,7 @@ class RGBController:
             self._lcd.vertically_constrained = True
             print("Selected NeoPixel {}".format(self._lcd.box_pos[1]))
         else:
-            self._current_rgb[self._rgb_pointer] = 31 * self._lcd.box_pos[0]
+            self._current_rgb[self._rgb_pointer] = 23 * self._lcd.box_pos[0]
             self._neopixel[self._lcd.box_pos[1]] = tuple(self._current_rgb) #type: ignore
             self._neopixel.write()
             print("Set {} value to {}".format(RGB_STRING[self._rgb_pointer], self._current_rgb[self._rgb_pointer]))
@@ -209,8 +210,8 @@ if __name__ == "__main__":
 
 ## 5) Demo
 
-[https://www.youtube.com/watch?v=qABb5nss_Kk](https://www.youtube.com/watch?v=qABb5nss_Kk)
+[https://www.youtube.com/watch?v=PfXG66XNrC0](https://www.youtube.com/watch?v=PfXG66XNrC0)
 
 Click image to access video
 
-[![RGBController](https://img.youtube.com/vi/qABb5nss_Kk/0.jpg)](https://www.youtube.com/watch?v=qABb5nss_Kk)
+[![RGBController](https://img.youtube.com/vi/PfXG66XNrC0/0.jpg)](https://www.youtube.com/watch?v=PfXG66XNrC0)
