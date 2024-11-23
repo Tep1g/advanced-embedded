@@ -204,9 +204,99 @@ if __name__ == "__main__":
 <br>
 
 ## 4) Validation
+### Test print statements for analog stick deadzone
 
+Modification to lcd.py
+```py
+        if input_x > 55000:
+            hor_move = 1
+            print("To the right of deadzone: {}".format(input_x))
+        elif input_x < 10535:
+            hor_move = -1
+            print("To the left of deadzone: {}".format(input_x))
+
+        if not self.vertically_constrained:
+            if input_y > 55000:
+                ver_move = 1
+                print("Above deadzone: {}".format(input_y))
+            elif input_y < 10535:
+                ver_move = -1
+                print("Below deadzone: {}".format(input_y))
+```
+
+ADC1 above deadzone of 55000
+
+![alt text](images/image-2.png)
+
+ADC1 below deadzone of 10535
+
+![alt text](images/image-1.png)
 
 <br>
+
+ADC0 right of deadzone of 55000
+
+![alt text](images/image-4.png)
+
+ADC0 left of deadzone of 10535
+
+![alt text](images/image-3.png)
+
+<br>
+
+### Test NeoPixel RGB from LCD coordinates
+
+Box Y coordinate 5 + Button Push = Select NeoPixel 5 (0 index)
+
+![alt text](images/20241123_163723.jpg)
+
+<br>
+
+Once a NeoPixel is selected, box can't move vertically (as expected)
+
+Box X coordinate 7 + Button Push = R value of 161 (7*23)
+
+![alt text](images/20241123_163917.jpg)
+
+<br>
+
+![alt text](images/image-5.png)
+
+<br>
+
+Box X coordinate 1 + Button Push = G value of 23 (1*23)
+
+![alt text](images/20241123_163931.jpg)
+
+![alt text](images/image-6.png)
+
+<br>
+
+Box X coordinate 11 + Button Push = B value of 253 (11*23)
+
+![alt text](images/20241123_164021.jpg)
+
+![alt text](images/image-7.png)
+
+<br>
+
+Purple
+
+![alt text](images/20241123_165641.jpg)
+
+![alt text](images/image-8.png)
+
+<br>
+
+Box goes back to being white (expected)
+
+![alt text](images/20241123_165912.jpg)
+
+<br>
+
+Pushing the clear button clears all NeoPixels
+
+![alt text](images/20241123_170016.jpg)
 
 ## 5) Demo
 
