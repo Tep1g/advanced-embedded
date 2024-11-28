@@ -29,6 +29,8 @@ The stick's ADCs will move the on-screen box's position in the vertical and hori
 
 <div style="page-break-after: always;"></div>
 
+## 2) Schematic (N/A) (Built-in)
+
 ## 3) Flowchart & Program
 ### Flowchart
 ![alt text](images/flowchart.png)
@@ -246,7 +248,7 @@ ADC0 left of deadzone of 10535
 
 ### Test NeoPixel RGB from LCD coordinates
 
-Box Y coordinate 5 + Button Push = Select NeoPixel 5 (0 index)
+Box Y coordinate 5 + RGB Button Push (GP14) = Select NeoPixel 5 (0 index)
 
 ![alt text](images/20241123_163723.jpg)
 
@@ -254,7 +256,7 @@ Box Y coordinate 5 + Button Push = Select NeoPixel 5 (0 index)
 
 Once a NeoPixel is selected, box can't move vertically (as expected)
 
-Box X coordinate 7 + Button Push = R value of 161 (7*23)
+Box color switches to red, Box X coordinate 7 + RGB Button Push (GP14) = R value of 161 (7*23)
 
 ![alt text](images/20241123_163917.jpg)
 
@@ -264,7 +266,7 @@ Box X coordinate 7 + Button Push = R value of 161 (7*23)
 
 <br>
 
-Box X coordinate 1 + Button Push = G value of 23 (1*23)
+Box color switches to green, Box X coordinate 1 + RGB Button Push (GP14) = G value of 23 (1*23)
 
 ![alt text](images/20241123_163931.jpg)
 
@@ -272,7 +274,7 @@ Box X coordinate 1 + Button Push = G value of 23 (1*23)
 
 <br>
 
-Box X coordinate 11 + Button Push = B value of 253 (11*23)
+Box color switches to blue, Box X coordinate 11 + RGB Button Push (GP14) = B value of 253 (11*23)
 
 ![alt text](images/20241123_164021.jpg)
 
@@ -288,13 +290,13 @@ Purple
 
 <br>
 
-Box goes back to being white (expected)
+Box color switches to white
 
 ![alt text](images/20241123_165912.jpg)
 
 <br>
 
-Pushing the clear button clears all NeoPixels
+Pushing the clear button (GP15) clears all NeoPixels
 
 ![alt text](images/20241123_170016.jpg)
 
